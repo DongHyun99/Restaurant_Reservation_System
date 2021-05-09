@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Restaurant_Reservation_System</string>
+    <string name="prompt_email">ID (Email Address)</string>
+    <string name="prompt_password">비밀번호</string>
+</resources>
