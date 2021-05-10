@@ -4,7 +4,7 @@ SE 텀프로젝트 레스토랑 예약 시스템의 repository입니다.
 
 ### Log  
 5/09   
-``` 오픈소스를 참고하여 예약시스템 Laumch, Login UI 구현 (https://github.com/mentesnot/Android-Flight-Reservation-App)```
+``` 오픈소스를 참고하여 예약시스템 Lauch, Login UI 구현 (https://github.com/mentesnot/Android-Flight-Reservation-App)```
 
   - Main, Launch, Login, RegisterActivity와 DatabaseHelper, HelperUtilities Java 파일 구현
   - Launch와 Login에 대한 Layout Activity 구현
