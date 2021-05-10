@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import com.restaurant_reservation_system.R;
 
 public class LaunchActivity extends AppCompatActivity {
