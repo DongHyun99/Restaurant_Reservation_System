@@ -4,172 +4,92 @@
  *  ************************************************************************************************/
 package com.restaurant_reservation_system.controllers;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
+import com.restaurant_reservation_system.R;
+import com.restaurant_reservation_system.database.User;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.restaurant_reservation_system.HelperUtils.HelperUtilities;
-import com.restaurant_reservation_system.R;
-import com.restaurant_reservation_system.database.DatabaseHelper;
+import android.view.View;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String MY_PREFERENCES = "MY_PREFS";
-    public static final String EMAIL = "EMAIL";
-    public static final String CLIENT_ID = "CLIENT_ID";
-    public static final String LOGIN_STATUS = "LOGGED_IN";
-    public static SharedPreferences sharedPreferences;
-    private EditText inputEmail;
-    private EditText inputPassword;
-    private TextView txtLoginError;
-    private boolean isValid;
-    private SQLiteOpenHelper databaseHelper;
-    private SQLiteDatabase db;
-    private Cursor cursor;
-    private int accountID;
-    private int clientID;
+    String[] r;
+    ArrayList <User> userArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        userArray = new ArrayList<User>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-        sharedPreferences = getSharedPreferences(MY_PREFERENCES, 0);
-        Boolean loggedIn = sharedPreferences.getBoolean(LOGIN_STATUS, false);//login status
-
-        //checks the login status and redirects to the main activity
-        if (loggedIn) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
+        Thread thread = new Thread(runnable);
+        thread.start();
 
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
-        TextView linkRegister = (TextView) findViewById(R.id.linkRegister);
-
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
-        txtLoginError = (TextView) findViewById(R.id.txtLoginError);
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-        linkRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(intent);
+
+
             }
         });
     }
 
-    //process login
-    public void attemptLogin() {
+    Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
+        @Override
+        public void run() {
+            try {
+                String site = "http://210.100.228.111/connect.php";
+                URL url = new URL(site);
+                //접속
+                URLConnection conn = url.openConnection();
+                //서버와 연결되어 있는 스트림을 추출
+                InputStream is = conn.getInputStream();
+                InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
 
-        try {
+                String str = null;
+                StringBuffer buf = new StringBuffer();
 
-            databaseHelper = new DatabaseHelper(getApplicationContext());
-            db = databaseHelper.getReadableDatabase();
+                do {
+                    str = br.readLine();
+                    if (str != null) {
+                        buf.append(str);
+                    }
+                } while (str != null);
 
-            isValid = isValidUserInput();
+                String data = buf.toString();  //json 문자열 다 읽어옴
+                r = data.split("</br>"); //문자열을 줄단위로 나눈다. 0번재 줄은 user 정보, 1번째 줄은 table 정보이다.
 
-            //filters the user input
-
-            String filteredEmail = HelperUtilities.filter(inputEmail.getText().toString());
-            String filteredPassword = HelperUtilities.filter(inputPassword.getText().toString());
-
-            if (isValid) {
-
-                cursor = DatabaseHelper.login(db, filteredEmail, filteredPassword);
-
-                if (cursor != null && cursor.getCount() == 1) {
-                    cursor.moveToFirst();
-
-                    String email = cursor.getString(1);
-                    clientID = cursor.getInt(3);
-
-                    //Toast.makeText(getApplicationContext(), "client id " + String.valueOf(clientID), Toast.LENGTH_SHORT).show();
-
-                    sharedPreferences = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                    editor.putInt(CLIENT_ID, clientID);
-                    editor.putString(EMAIL, email);
-                    editor.putBoolean(LOGIN_STATUS, true);
-
-                    editor.commit();
-
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                } else {
-
-                    txtLoginError.setText("Invalid email or password");
+                r[0]=r[0].replace("[","");
+                r[0]=r[0].replace("]","");
+                r[0]=r[0].replace("{","");
+                String []test = r[0].split("\\},");
+                test[test.length-1]=test[test.length-1].replace("}","");
+                for(int i=0; i< test.length; i++){
+                    test[i]=test[i].replace("\"name\":","");
+                    test[i]=test[i].replace("\"id\":","");
+                    test[i]=test[i].replace("\"phoneNumber\":","");
+                    test[i]=test[i].replace("\"pw\":","");
+                    test[i]=test[i].replace("\"","");
+                    String inform[]=test[i].split(",");
+                    userArray.add(new User(inform[0],inform[1],inform[2],inform[3]));
                 }
+                System.out.println(userArray.get(0).getID());
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        } catch (SQLiteException ex) {
-            Toast.makeText(getApplicationContext(), "Database unavailable", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    //validate user input
-    public boolean isValidUserInput() {
-        if (HelperUtilities.isEmptyOrNull(inputEmail.getText().toString())) {
-            txtLoginError.setText("Invalid email or password");
-            return false;
-        }
-        if (HelperUtilities.isEmptyOrNull(inputPassword.getText().toString())) {
-            txtLoginError.setText("Invalid email or password");
-            return false;
-        }
-        return true;
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        try {
-            if (cursor != null) {
-                cursor.close();
-            }
-
-            if (db != null) {
-                db.close();
-            }
-        } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(), "Error closing database or cursor", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle inState) {
-        super.onRestoreInstanceState(inState);
-    }
-
+    };
 }
+
