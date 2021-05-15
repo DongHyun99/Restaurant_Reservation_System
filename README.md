@@ -12,7 +12,7 @@ SE 텀프로젝트 레스토랑 예약 시스템의 repository입니다.
   - 구형 v7 compat -> androidx 통합 라이브러리로 수정
   - 전체화면 깨지는 bug fix
 
-05/16
+05/16  
 ``` DB - PHP - Android 연결```
 
   - LoginActivity 수정, DatabaseHelper 삭제
