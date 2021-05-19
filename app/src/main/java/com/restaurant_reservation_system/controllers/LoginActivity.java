@@ -25,6 +25,10 @@ import android.view.View;
 public class LoginActivity extends AppCompatActivity {
 
     ArrayList <User> userArray;
+    EditText email;
+    EditText password;
+    String u_email;
+    String u_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +39,18 @@ public class LoginActivity extends AppCompatActivity {
         thread.start();
 
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                boolean success = login();
+                if(success) {
+                    Intent intent = new Intent(LoginActivity.this, LaunchActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    //경고창?
+                }
             }
         });
 
@@ -53,7 +64,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
+    public boolean login(){
+        email= (EditText)findViewById(R.id.email);
+        password=(EditText)findViewById(R.id.password);
+        u_email = email.getText().toString();
+        u_password = password.getText().toString();
+        for(int i=0; i< userArray.size(); i++) {
+            if (u_email.equals(userArray.get(i).getID()) && u_password.equals(userArray.get(i).getPw()))
+                return true;
+        }
+        return false;
+    }
 
     Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
         @Override
@@ -95,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                     userArray.add(new User(inform[0],inform[1],inform[2],inform[3]));
                 }
                 System.out.println(userArray.get(0).getID());//유저정보받아오기
+
 
             } catch (Exception e) {
                 e.printStackTrace();
