@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
-                    System.out.println("return false");//경고창?
                 }
             }
         });
@@ -117,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
                     String inform[]=test[i].split(",");
                     userArray.add(new User(inform[1],inform[3],inform[0],inform[2]));
                 }
-                System.out.println("ID: "+userArray.get(0).getID());//유저정보받아오기
 
 
             } catch (Exception e) {
