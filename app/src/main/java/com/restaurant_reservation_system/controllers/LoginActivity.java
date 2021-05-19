@@ -4,6 +4,7 @@
  *  ************************************************************************************************/
 package com.restaurant_reservation_system.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.restaurant_reservation_system.R;
@@ -41,7 +42,18 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        TextView linkRegister = (TextView) findViewById(R.id.linkRegister);
+        linkRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+
 
     Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
         @Override
@@ -82,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                     String inform[]=test[i].split(",");
                     userArray.add(new User(inform[0],inform[1],inform[2],inform[3]));
                 }
-                System.out.println(userArray.get(0).getID());
+                System.out.println(userArray.get(0).getID());//유저정보받아오기
 
             } catch (Exception e) {
                 e.printStackTrace();
