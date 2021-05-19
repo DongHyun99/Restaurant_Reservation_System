@@ -23,7 +23,6 @@ import android.view.View;
 
 public class LoginActivity extends AppCompatActivity {
 
-    String[] r;
     ArrayList <User> userArray;
 
     @Override
@@ -48,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://210.100.228.111/connect.php";
+                String site = "http://210.100.228.111/user_inform.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -68,12 +67,11 @@ public class LoginActivity extends AppCompatActivity {
                 } while (str != null);
 
                 String data = buf.toString();  //json 문자열 다 읽어옴
-                r = data.split("</br>"); //문자열을 줄단위로 나눈다. 0번재 줄은 user 정보, 1번째 줄은 table 정보이다.
 
-                r[0]=r[0].replace("[","");
-                r[0]=r[0].replace("]","");
-                r[0]=r[0].replace("{","");
-                String []test = r[0].split("\\},");
+                data=data.replace("[","");
+                data=data.replace("]","");
+                data=data.replace("{","");
+                String []test = data.split("\\},");
                 test[test.length-1]=test[test.length-1].replace("}","");
                 for(int i=0; i< test.length; i++){
                     test[i]=test[i].replace("\"name\":","");
@@ -92,4 +90,3 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 }
-
