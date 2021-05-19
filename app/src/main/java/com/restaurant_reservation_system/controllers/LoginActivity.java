@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
-                    //경고창?
+                    System.out.println("return false");//경고창?
                 }
             }
         });
@@ -69,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         password=(EditText)findViewById(R.id.password);
         u_email = email.getText().toString();
         u_password = password.getText().toString();
+        System.out.println(u_email);
+        System.out.println(u_password);
         for(int i=0; i< userArray.size(); i++) {
             if (u_email.equals(userArray.get(i).getID()) && u_password.equals(userArray.get(i).getPw()))
                 return true;
@@ -113,9 +115,9 @@ public class LoginActivity extends AppCompatActivity {
                     test[i]=test[i].replace("\"pw\":","");
                     test[i]=test[i].replace("\"","");
                     String inform[]=test[i].split(",");
-                    userArray.add(new User(inform[0],inform[1],inform[2],inform[3]));
+                    userArray.add(new User(inform[1],inform[3],inform[0],inform[2]));
                 }
-                System.out.println(userArray.get(0).getID());//유저정보받아오기
+                System.out.println("ID: "+userArray.get(0).getID());//유저정보받아오기
 
 
             } catch (Exception e) {
