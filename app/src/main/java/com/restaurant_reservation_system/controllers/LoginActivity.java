@@ -4,8 +4,11 @@
  *  ************************************************************************************************/
 package com.restaurant_reservation_system.controllers;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.restaurant_reservation_system.R;
 import com.restaurant_reservation_system.database.User;
@@ -49,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
+                    onClickShowAlert(view);
                 }
             }
         });
@@ -62,6 +66,33 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void onClickShowAlert(View view) {
+        AlertDialog.Builder myAlertBuilder =
+                new AlertDialog.Builder(LoginActivity.this);
+        // alert의 title과 Messege 세팅
+        myAlertBuilder.setTitle("Alert");
+        myAlertBuilder.setMessage("로그인에 실패하였습니다. 다시 확인해 주세요");
+        // 버튼 추가 (Ok 버튼과 Cancle 버튼 )
+        myAlertBuilder.setPositiveButton("확인",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog,int which){
+                // OK 버튼을 눌렸을 경우
+                Toast.makeText(getApplicationContext(),"Pressed OK",
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        // Alert를 생성해주고 보여주는 메소드(show를 선언해야 Alert가 생성됨)
+        myAlertBuilder.show();
+    }
+
+
+
+
+
+
+
 
     public boolean login(){
         email= (EditText)findViewById(R.id.email);
