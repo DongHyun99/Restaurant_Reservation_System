@@ -20,11 +20,19 @@ SE 텀프로젝트 레스토랑 예약 시스템의 repository입니다.
   - 서버에 MariaDB와 연결된 데이터를 PHP파일로 웹 생성
   - PHP 파일을 json으로 받아와 Android에 연결
 
-### Next Week  
-```회원가입, DB 확장, TimeTableView, Calendar 합치기 ```
+05/19
+```DB를 사용하여 로그인 / 회원가입 정보를 DB에 INSERT```
 
-  - DB를 사용자 정보에 대한 ArrayList 형식으로 받아오기만 했기 때문에 나머지 작업도 추가로 필요
-  - 다른 팀원들이 가져온 파일들과 합치기
+- LoginActivity, Register Activity 수정
+- 로그인에서 회원가입 페이지로, 회원가입에서 로그인 페이지로 갈수 있도록 구현
+- 연결된 DB에서 USER_INFORM에 대한 정보를 추출하여 ArrayList에 저장하고 이를통해 로그인
+- PHP에 입력시 DB 테이블에 실시간으로 Inset
+
+### Next Week  
+```Insert PHP 합치기 / TimetableView DB 연결 ```
+
+  - Insert PHP를 안드로이드와 연동
+  - TimeTableView에서 PHP 정보를 받아와 table을 받아오는 method 구현
 
 # Samples  
 ## launch & login UI  
