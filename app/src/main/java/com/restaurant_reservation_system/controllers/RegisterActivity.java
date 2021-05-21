@@ -8,26 +8,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import com.restaurant_reservation_system.R;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-
+import com.restaurant_reservation_system.R;
 import org.json.JSONException;
 import org.json.JSONObject;
-public class RegisterActivity extends AppCompatActivity {
-    private EditText txtFirstName, txtEmail, txtPhone, txtPassword;
-    private Button btnRegister;
-    private AlertDialog dialog;
-    private boolean isvalid = false;
 
+public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register);
+
+        EditText email = (EditText) findViewById(R.id.registerID);
+        EditText password = (EditText) findViewById(R.id.registerPassword);
+        EditText name = (EditText) findViewById(R.id.registerName);
+        EditText phoneNumber = (EditText) findViewById(R.id.registerPhoneNumber);
 
         TextView linkLogin = (TextView) findViewById(R.id.linkLogin);
         linkLogin.setOnClickListener(new View.OnClickListener() {
@@ -37,54 +36,36 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        txtFirstName= (EditText) findViewById(R.id.txtFirstName);
-        txtEmail = (EditText) findViewById(R.id.txtEmail);
-        txtPhone = (EditText) findViewById(R.id.txtPhone);
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
 
-        //Register 버튼 클릭시 수행행
-       btnRegister=findViewById(R.id.btnRegister);
+        Button btnRegister = (Button) findViewById(R.id.btnRegister);
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // EditText에 현재 입력되어있는 값을 get(가져온다)해온다.
+            public void onClick(View view) {
+                String userID = email.getText().toString();
+                String userPW = password.getText().toString();
+                String userName = name.getText().toString();
+                String userPhoneNum = phoneNumber.getText().toString();
 
-                String id = txtEmail.getText().toString();
-                String pw = txtPassword.getText().toString();
-                String NAME = txtFirstName.getText().toString();
-                String phoneNumber = txtPhone.getText().toString();
-                 Response.Listener<String> responseListener = new Response.Listener<String>() {
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
-                            if (success) { // 회원등록에 성공한 경우
-                                Toast.makeText(getApplicationContext(),"회원 등록에 성공하였습니다.",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                            } else { // 회원등록에 실패한 경우
-                                Toast.makeText(getApplicationContext(),"회원 등록에 실패하였습니다.",Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                        } catch (JSONException e) {
+                            if(success) Toast.makeText(getApplicationContext(),"회원등록에 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                            else Toast.makeText(getApplicationContext(),"회원등록에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                        }catch (JSONException e){
                             e.printStackTrace();
                         }
-
                     }
                 };
                 // 서버로 Volley를 이용해서 요청을 함.
-                RegisterRequest registerRequest = new RegisterRequest(id,pw,NAME,phoneNumber, responseListener);
+                RegisterRequest registerRequest = new RegisterRequest(userID, userPW, userName, userPhoneNum, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
-
-
             }
         });
 
     }
-
-    }
-
-
-
+}
