@@ -99,8 +99,6 @@ public class LoginActivity extends AppCompatActivity {
         password=(EditText)findViewById(R.id.password);
         u_email = email.getText().toString();
         u_password = password.getText().toString();
-        System.out.println(u_email);
-        System.out.println(u_password);
         for(int i=0; i< userArray.size(); i++) {
             if (u_email.equals(userArray.get(i).getID()) && u_password.equals(userArray.get(i).getPw()))
                 return true;

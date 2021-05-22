@@ -21,11 +21,15 @@ public class MainActivity extends AppCompatActivity{
         final View myLayout = findViewById(R.id.main);
 
         TimetableView timetable = (TimetableView) findViewById(R.id.timetable);
-        timetable.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedListener() {
-            @Override
-            public void OnStickerSelected(int idx, ArrayList<Schedule> schedules) {
-
-            }
-        });
+        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+        Schedule schedule = new Schedule();
+        schedule.setClassTitle("Data Structure"); // sets subject
+        schedule.setClassPlace("IT-601"); // sets place
+        schedule.setProfessorName("Won Kim"); // sets professor
+        schedule.setStartTime(new Time(10,0)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(13,30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+//.. add one or more schedules
+        timetable.add(schedules);
     }
 }
