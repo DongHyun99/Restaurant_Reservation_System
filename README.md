@@ -40,3 +40,11 @@ SE 텀프로젝트 레스토랑 예약 시스템의 repository입니다.
 
 ## PHP connect
 ![image](https://user-images.githubusercontent.com/79196616/118366782-6ad8f200-b5db-11eb-80ca-be562c064f16.png)
+
+##Insert into DataBase  
+![GOMCAM 20210522_1204260702](https://user-images.githubusercontent.com/79196616/119228717-433fd780-bb4f-11eb-8b0a-dc4237fb9092.png)
+
+##TimeTableView  
+![GOMCAM 20210522_1131220565](https://user-images.githubusercontent.com/79196616/119228737-5488e400-bb4f-11eb-9293-75c271927b04.png)
+
+
