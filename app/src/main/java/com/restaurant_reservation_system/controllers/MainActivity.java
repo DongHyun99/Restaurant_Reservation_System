@@ -8,17 +8,27 @@ import com.restaurant_reservation_system.R;
 import com.github.tlaabs.timetableview.Time;
 import com.github.tlaabs.timetableview.TimetableView;
 import com.github.tlaabs.timetableview.Schedule;
+import com.restaurant_reservation_system.database.Booking;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity{
+
+    ArrayList<Booking> booking = new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         final View myLayout = findViewById(R.id.main);
+        Thread thread = new Thread(runnable);
+        thread.start();
 
         TimetableView timetable = (TimetableView) findViewById(R.id.timetable);
         ArrayList<Schedule> schedules = new ArrayList<Schedule>();
@@ -28,8 +38,59 @@ public class MainActivity extends AppCompatActivity{
         schedule.setProfessorName("Won Kim"); // sets professor
         schedule.setStartTime(new Time(10,0)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(13,30)); // sets the end of class time (hour,minute)
+        schedule.setDay(2);
         schedules.add(schedule);
 //.. add one or more schedules
         timetable.add(schedules);
     }
+
+    Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
+        @Override
+        public void run() {
+            try {
+                String site = "http://210.100.228.111/reservation.php";
+                URL url = new URL(site);
+                //접속
+                URLConnection conn = url.openConnection();
+                //서버와 연결되어 있는 스트림을 추출
+                InputStream is = conn.getInputStream();
+                InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+
+                String str = null;
+                StringBuffer buf = new StringBuffer();
+
+                do {
+                    str = br.readLine();
+                    if (str != null) {
+                        buf.append(str);
+                    }
+                } while (str != null);
+
+                String data = buf.toString();  //json 문자열 다 읽어옴
+
+                data=data.replace("[","");
+                data=data.replace("]","");
+                data=data.replace("{","");
+                String []test = data.split("\\},");
+                test[test.length-1]=test[test.length-1].replace("}","");
+                for(int i=0; i< test.length; i++){
+                    test[i]=test[i].replace("\"reservation_num\":","");
+                    test[i]=test[i].replace("\"covers\":","");
+                    test[i]=test[i].replace("\"date\":","");
+                    test[i]=test[i].replace("\"time\":","");
+                    test[i]=test[i].replace("\"table_id\":","");
+                    test[i]=test[i].replace("\"customer_id\":","");
+                    test[i]=test[i].replace("\"arrivalTime\":","");
+                    test[i]=test[i].replace("\"","");
+                    String inform[]=test[i].split(",");
+                    booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    };
 }
