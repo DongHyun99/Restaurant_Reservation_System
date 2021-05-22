@@ -22,14 +22,13 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-        >
+                android:orientation="horizontal">
             <Spinner
                     android:id="@+id/table_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:spinnerMode="dialog"
-                    android:entries="@array/my_header_title"
+                    android:entries="@array/table"
             />
             <TextView
                     android:id="@+id/start_time"
@@ -59,6 +58,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="bottom">
+
+        <Button
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="delete"
+        />
 
         <Button
                 android:id="@+id/submit_btn"
