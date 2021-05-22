@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity{
                 for (int i =0;i<booking.size();i++){
                     String time[] = booking.get(i).getTime().split(":");
                     Schedule schedule = new Schedule();
-                    schedule.setClassTitle("예약"); // sets subject
+                    schedule.setClassTitle(booking.get(i).getReservation_num()); // sets subject
                     schedule.setClassPlace(booking.get(i).getCustomer_id()); // sets place
                     schedule.setStartTime(new Time(Integer.parseInt(time[0]),Integer.parseInt(time[1]))); // sets the beginning of class time (hour,minute)
                     schedule.setEndTime(new Time(Integer.parseInt(time[0])+1,Integer.parseInt(time[1]))); // sets the end of class time (hour,minute)

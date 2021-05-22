@@ -28,6 +28,7 @@ import android.view.View;
 public class LoginActivity extends AppCompatActivity {
 
     ArrayList <User> userArray;
+    User who;
     EditText email;
     EditText password;
     String u_email;
@@ -100,8 +101,10 @@ public class LoginActivity extends AppCompatActivity {
         u_email = email.getText().toString();
         u_password = password.getText().toString();
         for(int i=0; i< userArray.size(); i++) {
-            if (u_email.equals(userArray.get(i).getID()) && u_password.equals(userArray.get(i).getPw()))
+            if (u_email.equals(userArray.get(i).getID()) && u_password.equals(userArray.get(i).getPw())){
+                who = new User(userArray.get(i).getID(),userArray.get(i).getPw(),userArray.get(i).getName(),userArray.get(i).getPhoneNumber());
                 return true;
+            }
         }
         return false;
     }
