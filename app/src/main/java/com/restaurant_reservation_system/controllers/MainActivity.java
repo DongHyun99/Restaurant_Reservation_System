@@ -9,6 +9,8 @@ import com.github.tlaabs.timetableview.Time;
 import com.github.tlaabs.timetableview.TimetableView;
 import com.github.tlaabs.timetableview.Schedule;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity{
     @Override
@@ -17,6 +19,13 @@ public class MainActivity extends AppCompatActivity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         final View myLayout = findViewById(R.id.main);
-    }
 
+        TimetableView timetable = (TimetableView) findViewById(R.id.timetable);
+        timetable.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedListener() {
+            @Override
+            public void OnStickerSelected(int idx, ArrayList<Schedule> schedules) {
+
+            }
+        });
+    }
 }
