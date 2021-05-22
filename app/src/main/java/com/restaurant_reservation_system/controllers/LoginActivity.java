@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 boolean success = login();
                 if(success) {
-                    Intent intent = new Intent(LoginActivity.this, LaunchActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
                 else{
