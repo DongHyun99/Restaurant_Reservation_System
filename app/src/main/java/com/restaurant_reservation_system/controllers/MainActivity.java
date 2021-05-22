@@ -1,21 +1,25 @@
-package com.restaurant_reservation_system.controllers;
 
-import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import androidx.appcompat.app.AppCompatActivity;
-import com.restaurant_reservation_system.R;
-import com.github.tlaabs.timetableview.Time;
-import com.github.tlaabs.timetableview.TimetableView;
-import com.github.tlaabs.timetableview.Schedule;
-import com.restaurant_reservation_system.database.Booking;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
+        package com.restaurant_reservation_system.controllers;
+
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.view.Window;
+        import android.widget.Button;
+        import androidx.appcompat.app.AppCompatActivity;
+        import com.restaurant_reservation_system.R;
+        import com.github.tlaabs.timetableview.Time;
+        import com.github.tlaabs.timetableview.TimetableView;
+        import com.github.tlaabs.timetableview.Schedule;
+        import com.restaurant_reservation_system.database.Booking;
+
+        import java.io.BufferedReader;
+        import java.io.InputStream;
+        import java.io.InputStreamReader;
+        import java.net.URL;
+        import java.net.URLConnection;
+        import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -31,6 +35,14 @@ public class MainActivity extends AppCompatActivity{
         Thread thread = new Thread(runnable);
         thread.start();
 
+        Button add_btn = (Button) findViewById(R.id.add_btn);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
