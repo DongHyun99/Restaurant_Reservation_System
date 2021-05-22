@@ -5,4 +5,11 @@
     <string name="prompt_name">이름</string>
     <string name="prompt_phone">연락처</string>
     <string name="prompt_confirm_password">비밀번호 확인</string>
+
+    <string-array name="my_header_title">
+        <item></item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>
