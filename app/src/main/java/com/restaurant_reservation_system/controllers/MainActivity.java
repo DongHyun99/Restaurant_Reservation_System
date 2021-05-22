@@ -20,9 +20,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
-    ArrayList<Booking> booking = new ArrayList();
+    ArrayList<Booking> booking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        booking = new ArrayList<Booking>();
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
@@ -30,18 +31,6 @@ public class MainActivity extends AppCompatActivity{
         Thread thread = new Thread(runnable);
         thread.start();
 
-        TimetableView timetable = (TimetableView) findViewById(R.id.timetable);
-        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-        Schedule schedule = new Schedule();
-        schedule.setClassTitle("Data Structure"); // sets subject
-        schedule.setClassPlace("IT-601"); // sets place
-        schedule.setProfessorName("Won Kim"); // sets professor
-        schedule.setStartTime(new Time(10,0)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(13,30)); // sets the end of class time (hour,minute)
-        schedule.setDay(2);
-        schedules.add(schedule);
-//.. add one or more schedules
-        timetable.add(schedules);
     }
 
     Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
@@ -86,6 +75,20 @@ public class MainActivity extends AppCompatActivity{
                     String inform[]=test[i].split(",");
                     booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
                 }
+
+                TimetableView timetable = (TimetableView) findViewById(R.id.timetable);
+                ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+                for (int i =0;i<booking.size();i++){
+                    String time[] = booking.get(i).getTime().split(":");
+                    Schedule schedule = new Schedule();
+                    schedule.setClassTitle("예약"); // sets subject
+                    schedule.setClassPlace(booking.get(i).getCustomer_id()); // sets place
+                    schedule.setStartTime(new Time(Integer.parseInt(time[0]),Integer.parseInt(time[1]))); // sets the beginning of class time (hour,minute)
+                    schedule.setEndTime(new Time(Integer.parseInt(time[0])+1,Integer.parseInt(time[1]))); // sets the end of class time (hour,minute)
+                    schedule.setDay(Integer.parseInt(booking.get(i).getTable_id()));
+                    schedules.add(schedule);
+                }
+                timetable.add(schedules);
 
             } catch (Exception e) {
                 e.printStackTrace();
