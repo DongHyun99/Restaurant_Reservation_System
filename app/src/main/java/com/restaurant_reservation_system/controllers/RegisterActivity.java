@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.restaurant_reservation_system.R;
+import com.restaurant_reservation_system.database.RegisterRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -1,4 +1,4 @@
-package com.restaurant_reservation_system.controllers;
+package com.restaurant_reservation_system.database;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -21,6 +21,8 @@ public class RegisterRequest extends StringRequest {
         map.put("pw", pw);
         map.put("NAME", NAME);
         map.put("phoneNumber", phoneNumber);
+        map.put("penalty", "F");
+        map.put("admin","F");
     }
 
     @Override

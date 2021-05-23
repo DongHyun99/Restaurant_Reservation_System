@@ -102,7 +102,8 @@ public class LoginActivity extends AppCompatActivity {
         u_password = password.getText().toString();
         for(int i=0; i< userArray.size(); i++) {
             if (u_email.equals(userArray.get(i).getID()) && u_password.equals(userArray.get(i).getPw())){
-                who = new User(userArray.get(i).getID(),userArray.get(i).getPw(),userArray.get(i).getName(),userArray.get(i).getPhoneNumber());
+                who = new User(userArray.get(i).getID(),userArray.get(i).getPw(),userArray.get(i).getName(),userArray.get(i).getPhoneNumber(),
+                        userArray.get(i).getPenalty(), userArray.get(i).getAdmin());
                 return true;
             }
         }
@@ -144,9 +145,11 @@ public class LoginActivity extends AppCompatActivity {
                     test[i]=test[i].replace("\"id\":","");
                     test[i]=test[i].replace("\"phoneNumber\":","");
                     test[i]=test[i].replace("\"pw\":","");
+                    test[i]=test[i].replace("\"penalty\":","");
+                    test[i]=test[i].replace("\"admin\":","");
                     test[i]=test[i].replace("\"","");
                     String inform[]=test[i].split(",");
-                    userArray.add(new User(inform[1],inform[3],inform[0],inform[2]));
+                    userArray.add(new User(inform[0],inform[1],inform[2],inform[3], inform[4], inform[5]));
                 }
 
 
