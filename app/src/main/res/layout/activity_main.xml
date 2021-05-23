@@ -1,47 +1,133 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        tools:context=".controllers.MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <com.github.tlaabs.timetableview.TimetableView
-            android:id="@+id/timetable"
+
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:header_title="@array/my_header_title"
-            app:column_count="4"
-            app:row_count="12"
-            tools:ignore="MissingConstraints"
-            app:header_highlight_type="color" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="parent"
-            android:layout_marginBottom="30dp"/>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-        <Button
-                android:id="@+id/add_btn"
+            android:layout_height="match_parent">
+        <FrameLayout
+                android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/primaryBlue"
-                android:textColor="@color/colorInverted"
-                android:text="Add"/>
+                android:layout_height="match_parent"
+                android:layout_margin="15dp">
 
-    </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
+                <LinearLayout
+                        android:id="@+id/containerTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="15dp"
+                        android:layout_marginBottom="10dp">
 
+                    <TextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="레스토랑 예약 시스템"
+                            android:textAlignment="center"
+                            android:textSize="30sp"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:fontFamily="sans-serif"/>
 
+                </LinearLayout>
 
+                <LinearLayout
+                        android:id="@+id/containerReservation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="15dp"
+                        android:layout_marginBottom="20dp">
 
+                    <ImageView
+                            android:layout_width="82dp"
+                            android:layout_height="65dp"
+                            android:src="@drawable/logo1"
+                            android:paddingTop="1dp"
+                            android:paddingRight="15dp"/>
+                    <Button
+                            android:id="@+id/btnTimeTable"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/primaryBlue"
+                            android:text="예약하기"
+                            android:textSize="18sp"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/colorInverted"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/containerArriveTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="15dp"
+                        android:layout_marginBottom="20dp"
+                >
+
+                    <ImageView
+                            android:layout_width="85dp"
+                            android:layout_height="63dp"
+                            android:src="@drawable/arrivetime"
+                            android:paddingTop="1dp"
+                            android:paddingRight="15dp"/>
+                    <Button
+                            android:id="@+id/btnArriveTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/primaryBlue"
+                            android:text="도착기록 리스트"
+                            android:textSize="18sp"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/colorInverted"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/containerStatistics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="15dp"
+                        android:layout_marginBottom="20dp">
+
+                    <ImageView
+                            android:layout_width="85dp"
+                            android:layout_height="63dp"
+                            android:src="@drawable/statistics"
+                            android:paddingTop="1dp"
+                            android:paddingRight="15dp"/>
+                    <Button
+                            android:id="@+id/btnStatistics"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/primaryBlue"
+                            android:text="통계"
+                            android:textSize="18sp"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/colorInverted"/>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </RelativeLayout>
 </LinearLayout>
