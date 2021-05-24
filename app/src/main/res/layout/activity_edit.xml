@@ -30,14 +30,16 @@
                     android:layout_height="match_parent"
                     android:id="@+id/Covers_edit"
                     android:hint="covers"/>
-            <EditText
+            <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:text="예약 테이블 설정"
+                    android:text="예약테이블 설정"
                     android:ems="10"
                     android:id="@+id/editTextTextPersonName"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
         </LinearLayout>
 
         <LinearLayout
