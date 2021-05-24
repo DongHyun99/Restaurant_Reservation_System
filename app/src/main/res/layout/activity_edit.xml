@@ -7,17 +7,38 @@
               android:orientation="vertical"
               tools:context="controllers.EditActivity">
 
+    <ImageView
+            android:src="@drawable/logo1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageView"
+            android:layout_margin="115dp"/>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_margin="20dp">
 
-        <EditText
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/Covers_edit"
-                android:hint="인원 수"/>
+                android:layout_height="match_parent">
 
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Covers_edit"
+                    android:hint="covers"/>
+            <EditText
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text="예약 테이블 설정"
+                    android:ems="10"
+                    android:id="@+id/editTextTextPersonName"
+                    android:layout_weight="1"/>
+        </LinearLayout>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -26,7 +47,7 @@
             <Spinner
                     android:id="@+id/table_spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:spinnerMode="dialog"
                     android:entries="@array/table"
             />
