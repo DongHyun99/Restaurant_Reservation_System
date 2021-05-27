@@ -50,7 +50,7 @@ public class TImeTableActivity extends AppCompatActivity{
         @Override
         public void run() {
             try {
-                String site = "http://192.168.219.101/reservation.php";
+                String site = "http://192.168.45.203/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();

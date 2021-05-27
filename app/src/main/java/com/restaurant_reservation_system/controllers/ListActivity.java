@@ -186,7 +186,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class UpDate extends StringRequest{
-        final static private String URL ="http://192.168.219.101/update_penalty.php";
+        final static private String URL ="http://192.168.45.203/update_penalty.php";
         private Map map;
         public UpDate(String id, String penalty, Response.Listener listener){
             super(Method.POST, URL, listener, null);

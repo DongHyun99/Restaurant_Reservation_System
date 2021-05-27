@@ -30,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button btnStat= (Button) findViewById(R.id.btnStatistics);
+        btnStat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), StaticisActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
