@@ -22,6 +22,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button btnArrivalTime= (Button) findViewById(R.id.btnArriveTime);
+        btnArrivalTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
