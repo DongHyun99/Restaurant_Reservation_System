@@ -32,8 +32,9 @@
     <color name="colorDarkOrange">#F57C00</color>
     <color name="colorOrange">#FF9800</color>
     <color name="colorDeepOrangeAccent">#448AFF</color>
-    <color name="backGround_login">#FAFAFA</color>
-    <color name="backGround_launch">#FF9800</color>
+    <color name="backGround_login">#FFFFFF</color>
+    <color name="backGround_launch">#FFFFFF</color>
+    <color name="backGround_main">#f9f9f9</color>
     <!--
     <color name="darkBlue">#1976D2</color>
     <color name="blue">#005fb3</color>

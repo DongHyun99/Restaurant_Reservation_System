@@ -6,15 +6,15 @@
               android:layout_height="match_parent"
               android:id="@+id/launch"
               android:orientation="vertical"
-              android:background="@color/colorOrange"
+              android:background="@color/backGround_launch"
               android:gravity="center"
               tools:context="com.restaurant_reservation_system.controllers.LaunchActivity">
 
     <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/logo1" />
+            android:layout_width="150dp"
+            android:layout_height="145dp"
+            app:srcCompat="@drawable/logo1"/>
 
     <TextView
             android:id="@+id/launch_title"

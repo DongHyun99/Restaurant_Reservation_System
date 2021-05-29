@@ -27,7 +27,7 @@ import android.view.View;
 
 public class LoginActivity extends AppCompatActivity {
 
-   static ArrayList <User> userArray;
+    static ArrayList<User> userArray;
     User who;
     EditText email;
     EditText password;
@@ -48,11 +48,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean success = login();
-                if(success) {
+                if (success) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
-                }
-                else{
+                } else {
                     onClickShowAlert(view);
                 }
             }
@@ -75,10 +74,10 @@ public class LoginActivity extends AppCompatActivity {
         myAlertBuilder.setTitle("Alert");
         myAlertBuilder.setMessage("로그인에 실패하였습니다. 다시 확인해 주세요");
         // 버튼 추가 (Ok 버튼과 Cancle 버튼 )
-        myAlertBuilder.setPositiveButton("확인",new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog,int which){
+        myAlertBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
                 // OK 버튼을 눌렸을 경우
-                Toast.makeText(getApplicationContext(),"Pressed OK",
+                Toast.makeText(getApplicationContext(), "Pressed OK",
                         Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
                 startActivity(intent);
@@ -89,20 +88,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-    public boolean login(){
-        email= (EditText)findViewById(R.id.email);
-        password=(EditText)findViewById(R.id.password);
+    public boolean login() {
+        email = (EditText) findViewById(R.id.email);
+        password = (EditText) findViewById(R.id.password);
         u_email = email.getText().toString();
         u_password = password.getText().toString();
-        for(int i=0; i< userArray.size(); i++) {
-            if (u_email.equals(userArray.get(i).getID()) && u_password.equals(userArray.get(i).getPw())){
-                who = new User(userArray.get(i).getID(),userArray.get(i).getPw(),userArray.get(i).getName(),userArray.get(i).getPhoneNumber(),
+        for (int i = 0; i < userArray.size(); i++) {
+            if (u_email.equals(userArray.get(i).getID()) && u_password.equals(userArray.get(i).getPw())) {
+                who = new User(userArray.get(i).getID(), userArray.get(i).getPw(), userArray.get(i).getName(), userArray.get(i).getPhoneNumber(),
                         userArray.get(i).getPenalty(), userArray.get(i).getAdmin());
                 return true;
             }
@@ -114,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://121.169.25.215/user_inform.php";
+                String site = "http://192.168.25.25/user_inform.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -135,21 +128,21 @@ public class LoginActivity extends AppCompatActivity {
 
                 String data = buf.toString();  //json 문자열 다 읽어옴
 
-                data=data.replace("[","");
-                data=data.replace("]","");
-                data=data.replace("{","");
-                String []test = data.split("\\},");
-                test[test.length-1]=test[test.length-1].replace("}","");
-                for(int i=0; i< test.length; i++){
-                    test[i]=test[i].replace("\"name\":","");
-                    test[i]=test[i].replace("\"id\":","");
-                    test[i]=test[i].replace("\"phoneNumber\":","");
-                    test[i]=test[i].replace("\"pw\":","");
-                    test[i]=test[i].replace("\"penalty\":","");
-                    test[i]=test[i].replace("\"admin\":","");
-                    test[i]=test[i].replace("\"","");
-                    String inform[]=test[i].split(",");
-                    userArray.add(new User(inform[0],inform[1],inform[2],inform[3], inform[4], inform[5]));
+                data = data.replace("[", "");
+                data = data.replace("]", "");
+                data = data.replace("{", "");
+                String[] test = data.split("\\},");
+                test[test.length - 1] = test[test.length - 1].replace("}", "");
+                for (int i = 0; i < test.length; i++) {
+                    test[i] = test[i].replace("\"name\":", "");
+                    test[i] = test[i].replace("\"id\":", "");
+                    test[i] = test[i].replace("\"phoneNumber\":", "");
+                    test[i] = test[i].replace("\"pw\":", "");
+                    test[i] = test[i].replace("\"penalty\":", "");
+                    test[i] = test[i].replace("\"admin\":", "");
+                    test[i] = test[i].replace("\"", "");
+                    String inform[] = test[i].split(",");
+                    userArray.add(new User(inform[0], inform[1], inform[2], inform[3], inform[4], inform[5]));
                 }
 
 

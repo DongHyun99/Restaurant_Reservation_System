@@ -1,7 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<androidx.drawerlayout.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
     <RelativeLayout
@@ -144,4 +146,5 @@
             </LinearLayout>
         </FrameLayout>
     </RelativeLayout>
-</LinearLayout>
+    <include layout="@layout/activity_drawer"/>
+</androidx.drawerlayout.widget.DrawerLayout>
