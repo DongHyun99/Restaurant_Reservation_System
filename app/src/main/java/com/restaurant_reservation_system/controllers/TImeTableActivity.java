@@ -19,15 +19,19 @@
         import java.io.InputStreamReader;
         import java.net.URL;
         import java.net.URLConnection;
+        import java.text.DateFormat;
+        import java.text.SimpleDateFormat;
         import java.util.ArrayList;
+        import java.util.Date;
 
 
-public class TImeTableActivity extends AppCompatActivity{
+        public class TImeTableActivity extends AppCompatActivity{
 
     static ArrayList<Booking> booking;
-    static int max_num=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        System.out.println(getIntent().getIntExtra("year",1));
         booking = new ArrayList<Booking>();
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -50,7 +54,7 @@ public class TImeTableActivity extends AppCompatActivity{
         @Override
         public void run() {
             try {
-                String site = "http://192.168.45.203/reservation.php";
+                String site = "http://121.169.25.215/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -71,6 +75,10 @@ public class TImeTableActivity extends AppCompatActivity{
 
                 String data = buf.toString();  //json 문자열 다 읽어옴
 
+                String day = Integer.toString(getIntent().getIntExtra("day",1));
+                String month = Integer.toString(getIntent().getIntExtra("month",1));
+                String year = Integer.toString(getIntent().getIntExtra("year",1));
+
                 data=data.replace("[","");
                 data=data.replace("]","");
                 data=data.replace("{","");
@@ -86,8 +94,14 @@ public class TImeTableActivity extends AppCompatActivity{
                     test[i]=test[i].replace("\"arrivalTime\":","");
                     test[i]=test[i].replace("\"","");
                     String inform[]=test[i].split(",");
-                    booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
-                    if (Integer.parseInt(inform[0])>max_num) max_num = Integer.parseInt(inform[0])+1;
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+                    Date select1 = dateFormat.parse(inform[2].replace("-","."));
+                    Date select2 = dateFormat.parse(year+"."+month+"."+day);
+                    System.out.println(select1);
+                    System.out.println(select2);
+                    if (select1==select2)
+                        System.out.println("success");
+                        booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
                 }
 
                 TimetableView timetable = (TimetableView) findViewById(R.id.timetable);
