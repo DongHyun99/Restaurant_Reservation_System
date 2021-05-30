@@ -30,7 +30,6 @@ public class AddActivity extends AppCompatActivity {
             String month = Integer.toString(getIntent().getIntExtra("month",1)+1);
             String year = Integer.toString(getIntent().getIntExtra("year",1));
             DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-
             date = dateFormat.parse(year+"."+month+"."+day);
         } catch (ParseException e) {
             e.printStackTrace();

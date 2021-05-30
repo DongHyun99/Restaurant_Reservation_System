@@ -30,6 +30,7 @@
             String day;
             String month;
             String year;
+            int recent_number=0;
 
     static ArrayList<Booking> booking;
     @Override
@@ -51,6 +52,7 @@
                 intent.putExtra("day",day);
                 intent.putExtra("month",month);
                 intent.putExtra("year",year);
+                intent.putExtra("recentNumber", recent_number);
 
                 startActivity(intent);
             }
@@ -107,6 +109,8 @@
                     test[i]=test[i].replace("\"arrivalTime\":","");
                     test[i]=test[i].replace("\"","");
                     String inform[]=test[i].split(",");
+                    if (Integer.parseInt(inform[0])>recent_number)
+                        recent_number = Integer.parseInt(inform[0])+1;
                     DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
                     Date select1 = dateFormat.parse(inform[2].replace("-","."));
                     Date select2 = dateFormat.parse(year+"."+month+"."+day);
