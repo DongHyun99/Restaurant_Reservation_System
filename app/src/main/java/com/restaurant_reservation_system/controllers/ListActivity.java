@@ -17,6 +17,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.tlaabs.timetableview.Schedule;
+import com.github.tlaabs.timetableview.Time;
 import com.github.tlaabs.timetableview.TimetableView;
 import com.restaurant_reservation_system.R;
 import com.restaurant_reservation_system.database.Booking;
@@ -30,10 +32,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ListActivity extends AppCompatActivity {
     SingleAdapter adapter;
@@ -43,6 +44,7 @@ public class ListActivity extends AppCompatActivity {
     static HashMap<String,String> noShow = new HashMap<>() ;
     ArrayList<SingleItem> items = new ArrayList<SingleItem>();
     String penalty;
+    ArrayList<Booking> booking = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,9 @@ public class ListActivity extends AppCompatActivity {
         arrival_time = (EditText) findViewById(R.id.arrival_time);
 
         ListView listView = (ListView) findViewById(R.id.listView);
+
+        Thread thread = new Thread(runnable);
+        thread.start();
 
         // 어댑터 안에 데이터 담기
         adapter = new SingleAdapter();
@@ -72,14 +77,7 @@ public class ListActivity extends AppCompatActivity {
         // 리스트 뷰에 어댑터 설정
         listView.setAdapter(adapter);
 
-        // 이벤트 처리 리스너 설정
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User item = (User) adapter.getItem(position);
-                Toast.makeText(getApplicationContext(), "선택 :" + item.getName(), Toast.LENGTH_LONG).show();
-            }
-        });
+
 
         // 버튼 눌렀을 때 우측 이름, 전화번호가 리스트뷰에 포함되도록 처리
         Button button = (Button) findViewById(R.id.AddList_btn);
@@ -89,9 +87,9 @@ public class ListActivity extends AppCompatActivity {
                 String id = user_id.getText().toString();
                 String time = arrival_time.getText().toString();
                 Booking b = null;
-                for (int i = 0; i < TImeTableActivity.booking.size(); i++) {
-                    if (TImeTableActivity.booking.get(i).getCustomer_id().equals(id)) {
-                        b = TImeTableActivity.booking.get(i);
+                for (int i = 0; i < booking.size(); i++) {
+                    if (booking.get(i).getCustomer_id().equals(id)) {
+                        b = booking.get(i);
                         break;
                     }
                 }
@@ -116,6 +114,57 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
+
+    Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
+        @Override
+        public void run() {
+            try {
+                String site = "http://121.169.25.215/reservation.php";
+                URL url = new URL(site);
+                //접속
+                URLConnection conn = url.openConnection();
+                //서버와 연결되어 있는 스트림을 추출
+                InputStream is = conn.getInputStream();
+                InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+
+                String str = null;
+                StringBuffer buf = new StringBuffer();
+
+                do {
+                    str = br.readLine();
+                    if (str != null) {
+                        buf.append(str);
+                    }
+                } while (str != null);
+
+                String data = buf.toString();  //json 문자열 다 읽어옴
+
+                data=data.replace("[","");
+                data=data.replace("]","");
+                data=data.replace("{","");
+                String []test = data.split("\\},");
+                test[test.length-1]=test[test.length-1].replace("}","");
+                for(int i=0; i< test.length; i++){
+                    test[i]=test[i].replace("\"reservation_num\":","");
+                    test[i]=test[i].replace("\"covers\":","");
+                    test[i]=test[i].replace("\"date\":","");
+                    test[i]=test[i].replace("\"time\":","");
+                    test[i]=test[i].replace("\"table_id\":","");
+                    test[i]=test[i].replace("\"customer_id\":","");
+                    test[i]=test[i].replace("\"arrivalTime\":","");
+                    test[i]=test[i].replace("\"","");
+                    String inform[]=test[i].split(",");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+                    Date select1 = dateFormat.parse(inform[2].replace("-","."));
+                    booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    };
 
     class SingleAdapter extends BaseAdapter {
 
