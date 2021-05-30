@@ -27,6 +27,10 @@
 
         public class TImeTableActivity extends AppCompatActivity{
 
+            String day;
+            String month;
+            String year;
+
     static ArrayList<Booking> booking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,10 @@
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                intent.putExtra("day",day);
+                intent.putExtra("month",month);
+                intent.putExtra("year",year);
+
                 startActivity(intent);
             }
         });
@@ -80,9 +88,9 @@
 
                 String data = buf.toString();  //json 문자열 다 읽어옴
 
-                String day = Integer.toString(getIntent().getIntExtra("day",1));
-                String month = Integer.toString(getIntent().getIntExtra("month",1)+1);
-                String year = Integer.toString(getIntent().getIntExtra("year",1));
+                day = Integer.toString(getIntent().getIntExtra("day",1));
+                month = Integer.toString(getIntent().getIntExtra("month",1)+1);
+                year = Integer.toString(getIntent().getIntExtra("year",1));
 
                 data=data.replace("[","");
                 data=data.replace("]","");
