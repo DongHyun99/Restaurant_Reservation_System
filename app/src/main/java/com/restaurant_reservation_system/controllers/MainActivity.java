@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.219.100/reservation.php";
+                String site = "http://121.169.25.215/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -165,21 +165,6 @@ public class MainActivity extends AppCompatActivity {
                     booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
                     if (Integer.parseInt(inform[0])>max_num) max_num = Integer.parseInt(inform[0])+1;
                 }
-
-                TimetableView timetable = (TimetableView) findViewById(R.id.timetable);
-                ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-                for (int i =0;i<booking.size();i++){
-                    String time[] = booking.get(i).getTime().split(":");
-                    Schedule schedule = new Schedule();
-                    schedule.setClassTitle(booking.get(i).getReservation_num()); // sets subject
-                    schedule.setClassPlace(booking.get(i).getCustomer_id()); // sets place
-                    schedule.setStartTime(new Time(Integer.parseInt(time[0]),Integer.parseInt(time[1]))); // sets the beginning of class time (hour,minute)
-                    schedule.setEndTime(new Time(Integer.parseInt(time[0])+1,Integer.parseInt(time[1]))); // sets the end of class time (hour,minute)
-                    schedule.setDay(Integer.parseInt(booking.get(i).getTable_id()));
-                    schedules.add(schedule);
-                }
-                timetable.add(schedules);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
