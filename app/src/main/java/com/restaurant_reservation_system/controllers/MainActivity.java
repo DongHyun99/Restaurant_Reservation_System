@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,16 @@ public class MainActivity extends AppCompatActivity {
 
     static ArrayList<Booking> booking;
     static int max_num=0;
+    private TextView name;
+    String getStringId;
+    String getStringName;
+    String u_date;
+    String u_time;
+    String u_covers;
+    TextView date;
+    TextView time;
+    TextView covers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         booking = new ArrayList<Booking>();
@@ -39,6 +50,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Thread thread = new Thread(runnable);
         thread.start();
+
+        getStringName = getIntent().getStringExtra("name");
+        name = (TextView)findViewById(R.id.name);
+        name.setText(getStringName+" 님");
+
+        boolean success = match();
+        if(success) {
+            date = (TextView) findViewById(R.id.date);
+            date.setText("날짜 "+u_date);
+
+            time = (TextView) findViewById(R.id.times);
+            time.setText("시간 "+u_time);
+
+            covers = (TextView) findViewById(R.id.covers);
+            covers.setText("인원 수 "+u_covers);
+        }
+        else{
+            date = (TextView) findViewById(R.id.date);
+            date.setText("아직 예약을 하지 않았습니다.");
+
+            time = (TextView) findViewById(R.id.times);
+            time.setText("아직 예약을 하지 않았습니다.");
+
+            covers = (TextView) findViewById(R.id.covers);
+            covers.setText("아직 예약을 하지 않았습니다.");
+        }
+
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerView = (View) findViewById(R.id.drawerView);
@@ -71,6 +110,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public boolean match() {
+        getStringId = getIntent().getStringExtra("id");
+        for (int i = 0; i < booking.size(); i++) {
+            if (getStringId.equals(booking.get(i).getCustomer_id())) {
+                u_date = booking.get(i).getDate();
+                u_time = booking.get(i).getTime();
+                u_covers = booking.get(i).getCovers();
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     void showDate() {
         //달력 보여주는 함수
@@ -126,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://121.169.25.215/reservation.php";
+                String site = "http://192.168.25.25/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();

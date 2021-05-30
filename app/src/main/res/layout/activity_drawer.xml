@@ -18,19 +18,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="반갑습니다"
-                android:textSize="14dp"
+                android:textSize="18dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="60dp"
                 android:layout_centerHorizontal="true">
         </TextView>
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/genter_icon"
-                android:layout_marginTop="80dp"
-                android:layout_marginLeft="50dp">
-        </ImageView>
 
         <TextView
                 android:id="@+id/name"
@@ -61,10 +53,11 @@
         </LinearLayout>
 
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="298dp"
-                android:layout_marginLeft="20dp">
+                android:src="@drawable/waitinglist"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="285dp"
+                android:layout_marginLeft="3dp">
         </ImageView>
 
         <TextView
@@ -74,7 +67,7 @@
                 android:text="날짜"
                 android:textColor="#ffffff"
                 android:layout_marginTop="298dp"
-                android:layout_marginLeft="44dp">
+                android:layout_marginLeft="55dp">
         </TextView>
 
         <LinearLayout
@@ -85,10 +78,11 @@
         </LinearLayout>
 
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="368dp"
-                android:layout_marginLeft="20dp">
+                android:src="@drawable/time"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="355dp"
+                android:layout_marginLeft="3dp">
         </ImageView>
 
         <TextView
@@ -98,7 +92,7 @@
                 android:text="시간"
                 android:textColor="#ffffff"
                 android:layout_marginTop="368dp"
-                android:layout_marginLeft="44dp">
+                android:layout_marginLeft="55dp">
         </TextView>
 
         <LinearLayout
@@ -109,10 +103,11 @@
         </LinearLayout>
 
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="438dp"
-                android:layout_marginLeft="20dp">
+                android:src="@drawable/people"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="425dp"
+                android:layout_marginLeft="3dp">
         </ImageView>
 
         <TextView
@@ -122,7 +117,7 @@
                 android:text="인원 수"
                 android:textColor="#ffffff"
                 android:layout_marginTop="438dp"
-                android:layout_marginLeft="44dp">
+                android:layout_marginLeft="55dp">
         </TextView>
 
         <LinearLayout

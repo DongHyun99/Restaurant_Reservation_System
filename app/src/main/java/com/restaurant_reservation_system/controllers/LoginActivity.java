@@ -50,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
                 boolean success = login();
                 if (success) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("name",who.getName());
+                    intent.putExtra("id",who.getID());
                     startActivity(intent);
                 } else {
                     onClickShowAlert(view);
@@ -107,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://121.169.25.215/user_inform.php";
+                String site = "http://192.168.25.25/user_inform.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();

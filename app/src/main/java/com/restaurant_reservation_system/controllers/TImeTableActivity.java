@@ -31,6 +31,7 @@
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        System.out.println(getIntent().getIntExtra("year",1));
         booking = new ArrayList<Booking>();
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -49,17 +50,11 @@
         });
     }
 
-    @Override
-    protected void onPause(){
-        super.onPause();
-        booking = null;
-    }
-
     Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
         @Override
         public void run() {
             try {
-                String site = "http://121.169.25.215/reservation.php";
+                String site = "http://192.168.25.25/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -81,7 +76,7 @@
                 String data = buf.toString();  //json 문자열 다 읽어옴
 
                 String day = Integer.toString(getIntent().getIntExtra("day",1));
-                String month = Integer.toString(getIntent().getIntExtra("month",1)+1);
+                String month = Integer.toString(getIntent().getIntExtra("month",1));
                 String year = Integer.toString(getIntent().getIntExtra("year",1));
 
                 data=data.replace("[","");
@@ -104,7 +99,8 @@
                     Date select2 = dateFormat.parse(year+"."+month+"."+day);
                     System.out.println(select1);
                     System.out.println(select2);
-                    if (select1.equals(select2))
+                    if (select1==select2)
+                        System.out.println("success");
                         booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
                 }
 
