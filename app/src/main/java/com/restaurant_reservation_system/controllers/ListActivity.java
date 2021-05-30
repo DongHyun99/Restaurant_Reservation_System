@@ -32,6 +32,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class ListActivity extends AppCompatActivity {
@@ -39,6 +40,7 @@ public class ListActivity extends AppCompatActivity {
     EditText user_id;
     EditText arrival_time;
     ArrayList<User> users= LoginActivity.userArray;
+    static HashMap<String,String> noShow = new HashMap<>() ;
     ArrayList<SingleItem> items = new ArrayList<SingleItem>();
     String penalty;
 
@@ -59,8 +61,13 @@ public class ListActivity extends AppCompatActivity {
             if(users.get(i).getPenalty().equals("T")){
                 adapter.addItem(new SingleItem(users.get(i).getID(),"NO SHOW",R.drawable.logo1));
             }
-
         }
+        if(!noShow.isEmpty()){
+            Iterator<String> keys =noShow.keySet().iterator();
+            while( keys.hasNext() ){
+                String key = keys.next();
+                adapter.addItem(new SingleItem(key,"NO SHOW",R.drawable.logo1));
+            }}
 
         // 리스트 뷰에 어댑터 설정
         listView.setAdapter(adapter);
@@ -100,6 +107,7 @@ public class ListActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                     listView.setAdapter(adapter);
                     upDate();
+                    noShow.put(id,time);
                 }
 
 
@@ -155,6 +163,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public void upDate (){
+
         Response.Listener<String> res = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -186,7 +195,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class UpDate extends StringRequest{
-        final static private String URL ="http://121.169.25.215/update_penalty.php";
+        final static private String URL ="http://192.168.219.100/update_penalty.php";
         private Map map;
         public UpDate(String id, String penalty, Response.Listener listener){
             super(Method.POST, URL, listener, null);
@@ -199,4 +208,6 @@ public class ListActivity extends AppCompatActivity {
             return map;
         }
     }
+
+
 }
