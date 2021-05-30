@@ -6,10 +6,8 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.restaurant_reservation_system.R;
 import org.json.JSONArray;
@@ -45,10 +43,15 @@ public class StaticisActivity extends AppCompatActivity {
         setContentView(R.layout.activity_staticislist_main);
 
         mlistView = (ListView) findViewById(R.id.listView_main_list);
+        final View header = getLayoutInflater().inflate(R.layout.activity_staticislist_header, null, false) ;
+        mlistView .addHeaderView(header) ;
+        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1) ;
+
+
         mArrayList = new ArrayList<>();
 
         GetData task = new GetData();
-        task.execute("http://192.168.25.25/getjson.php");
+        task.execute("http://192.168.0.84/getjson.php");
     }
 
 
