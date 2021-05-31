@@ -70,6 +70,7 @@
                             android:paddingRight="15dp"
                     />
                     <Button
+                            android:layout_marginTop="30dp"
                             android:id="@+id/btnTimeTable"
                             android:layout_width="180dp"
                             android:layout_height="wrap_content"
@@ -85,38 +86,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                        android:layout_marginTop="-10dp"
                         android:id="@+id/containerArriveTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="15dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="20dp"
-                >
-
-                    <ImageView
-                            android:layout_width="85dp"
-                            android:layout_height="63dp"
-                            android:src="@drawable/noshowlist"
-                            android:paddingTop="1dp"
-                            android:paddingRight="15dp"/>
-                    <Button
-                            android:id="@+id/btnArriveTime"
-                            android:layout_width="180dp"
-                            android:layout_height="wrap_content"
-                            android:background="@color/primaryBlue"
-                            android:text="노쇼 리스트"
-                            android:textSize="18sp"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:fontFamily="sans-serif-condensed-medium"
-                            android:textColor="@color/colorInverted"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                        android:id="@+id/containerStatistics"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -127,22 +98,25 @@
                     <ImageView
                             android:layout_width="85dp"
                             android:layout_height="63dp"
-                            android:src="@drawable/statistics"
+                            android:src="@drawable/waiting"
                             android:paddingTop="1dp"
                             android:paddingRight="15dp"/>
                     <Button
-                            android:id="@+id/btnStatistics"
+                            android:id="@+id/btnWaitingList"
                             android:layout_width="180dp"
                             android:layout_height="wrap_content"
                             android:background="@color/primaryBlue"
-                            android:text="통계"
+                            android:text="대기 리스트"
                             android:textSize="18sp"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:fontFamily="sans-serif-condensed-medium"
                             android:textColor="@color/colorInverted"/>
+
                 </LinearLayout>
+
+
             </LinearLayout>
         </FrameLayout>
     </RelativeLayout>
