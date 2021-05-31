@@ -30,11 +30,11 @@ public class AdminMainActivity extends AppCompatActivity {
     static ArrayList<Booking> booking;
     static int max_num=0;
     private TextView name;
-    String getStringId;
-    String getStringName;
     String u_date;
     String u_time;
     String u_covers;
+    String getStringId;
+    String getStringName;
     TextView date;
     TextView time;
     TextView covers;
