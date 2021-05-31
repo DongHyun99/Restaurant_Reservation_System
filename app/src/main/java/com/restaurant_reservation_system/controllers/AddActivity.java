@@ -2,6 +2,7 @@ package com.restaurant_reservation_system.controllers;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -39,15 +40,15 @@ public class AddActivity extends AppCompatActivity {
         String day = Integer.toString(getIntent().getIntExtra("day", 1));
         String month = Integer.toString(getIntent().getIntExtra("month", 1) + 1);
         String year = Integer.toString(getIntent().getIntExtra("year", 1));
-        max_num = getIntent().getIntExtra("maxNum",1)+1;
-        date = year + "." + month + "." + day;
+        max_num = getIntent().getIntExtra("maxNum",1);
+        date = year + "-" + month + "-" + day;
 
         Button submit_btn = (Button) findViewById(R.id.submit_btn);
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String cover = covers.getText().toString();
-                String table = table_num.getSelectedItem().toString();
+                String table = Integer.toString(Integer.parseInt(table_num.getSelectedItem().toString())-1);
 
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -66,6 +67,14 @@ public class AddActivity extends AppCompatActivity {
                 System.out.println(Integer.toString(max_num)+", "+cover+", "+date+", "+time+", "+table+", "+getIntent().getStringExtra("id")+", "+"0" );
                 RequestQueue queue = Volley.newRequestQueue(AddActivity.this);
                 queue.add(reservationRequest);
+
+                Toast.makeText(getApplicationContext(),"예약이 추가되었습니다.",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),TImeTableActivity.class);
+                intent.putExtra("day", getIntent().getIntExtra("day", 1));
+                intent.putExtra("month",getIntent().getIntExtra("month", 1));
+                intent.putExtra("year", getIntent().getIntExtra("year", 1));
+                intent.putExtra("maxNum",max_num+1);
+                startActivity(intent);
 
 
             }

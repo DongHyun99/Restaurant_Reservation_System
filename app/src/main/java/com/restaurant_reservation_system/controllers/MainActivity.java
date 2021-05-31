@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                     test[i]=test[i].replace("\"","");
                     String inform[]=test[i].split(",");
                     booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
-                    if (Integer.parseInt(inform[0])>max_num) max_num = Integer.parseInt(inform[0])+1;
+                    if (Integer.parseInt(inform[0])>=max_num) max_num = Integer.parseInt(inform[0])+1;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
