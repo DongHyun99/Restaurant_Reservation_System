@@ -48,12 +48,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean success = login();
+                boolean adminsuccess = isadminlogin();;
+
                 if (success) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("name",who.getName());
-                    intent.putExtra("id",who.getID());
-                    startActivity(intent);
-                } else {
+                    if(adminsuccess){//만약에 관리자이면(admin= true) 관리자 메인 화면으로 넘어가기
+                        Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);//
+                        intent.putExtra("name",who.getName());
+                        intent.putExtra("id",who.getID());
+                        startActivity(intent);}
+                    else//(고객이면 고객용 메인 화면으로 넘어가기)
+                    { Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("name",who.getName());
+                        intent.putExtra("id",who.getID());
+                        startActivity(intent);}
+                }
+                else {
                     onClickShowAlert(view);
                 }
             }
@@ -104,12 +113,18 @@ public class LoginActivity extends AppCompatActivity {
         }
         return false;
     }
+    public boolean isadminlogin() {//관리자인지 확인
+        if(who.getAdmin().equals("T"))
+            return true;
+        else
+            return false;
+    }
 
     Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
         @Override
         public void run() {
             try {
-                String site = "http://192.168.25.25/user_inform.php";
+                String site = "http://192.168.0.84/user_inform.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
