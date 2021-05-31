@@ -46,10 +46,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         booking = new ArrayList<Booking>();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         Thread thread = new Thread(runnable);
         thread.start();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
 
         getStringName = getIntent().getStringExtra("name");
         name = (TextView)findViewById(R.id.name);
@@ -58,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
         boolean success = match();
         if(success) {
             date = (TextView) findViewById(R.id.date);
-            date.setText("날짜 "+u_date);
+            date.setText("날짜     "+u_date);
 
             time = (TextView) findViewById(R.id.times);
-            time.setText("시간 "+u_time);
+            time.setText("시간     "+u_time);
 
             covers = (TextView) findViewById(R.id.covers);
-            covers.setText("인원 수 "+u_covers);
+            covers.setText("인원 수     "+u_covers);
         }
         else{
             date = (TextView) findViewById(R.id.date);
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.219.100/reservation.php";
+                String site = "http://192.168.25.25/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
