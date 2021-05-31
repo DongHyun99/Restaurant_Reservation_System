@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,7 +24,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register);
-
         EditText email = (EditText) findViewById(R.id.registerID);
         EditText password = (EditText) findViewById(R.id.registerPassword);
         EditText name = (EditText) findViewById(R.id.registerName);
@@ -43,10 +43,45 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog dialog;
+
                 String userID = email.getText().toString();
                 String userPW = password.getText().toString();
                 String userName = name.getText().toString();
                 String userPhoneNum = phoneNumber.getText().toString();
+
+                if(userID.equals("")){
+                    AlertDialog.Builder builder=new AlertDialog.Builder( RegisterActivity.this );
+                    dialog=builder.setMessage("아이디를 입력해주세요")
+                            .setPositiveButton("확인",null)
+                            .create();
+                    dialog.show();
+                    return;
+                }
+                if(userPW.equals("")){
+                    AlertDialog.Builder builder=new AlertDialog.Builder( RegisterActivity.this );
+                    dialog=builder.setMessage("비밀번호를 입력해주세요")
+                            .setPositiveButton("확인",null)
+                            .create();
+                    dialog.show();
+                    return;
+                }
+                if(userName.equals("")){
+                    AlertDialog.Builder builder=new AlertDialog.Builder( RegisterActivity.this );
+                    dialog=builder.setMessage("이름을 입력해주세요")
+                            .setPositiveButton("확인",null)
+                            .create();
+                    dialog.show();
+                    return;
+                }
+                if(userPhoneNum.equals("")){
+                    AlertDialog.Builder builder=new AlertDialog.Builder( RegisterActivity.this );
+                    dialog=builder.setMessage("전화번호를 입력해주세요")
+                            .setPositiveButton("확인",null)
+                            .create();
+                    dialog.show();
+                    return;
+                }
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
