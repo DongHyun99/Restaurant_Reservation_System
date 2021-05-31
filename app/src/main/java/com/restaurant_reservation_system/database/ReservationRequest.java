@@ -9,7 +9,7 @@ import java.util.Map;
 public class ReservationRequest extends StringRequest {
 
     // 서버 URL 설정 ( PHP 파일 연동 )
-    final static private String URL = "http://192.168.25.25/edit_reservation.php";
+    final static private String URL = "http://121.169.25.215/edit_reservation.php";
     private Map<String, String> map;
 
 
@@ -23,7 +23,7 @@ public class ReservationRequest extends StringRequest {
         map.put("TIME", time);
         map.put("table_id", tableID);
         map.put("customer_id", customerID);
-        map.put("arrivaltime", arrivalTime);
+        map.put("arrivalTime", arrivalTime);
     }
 
     @Override

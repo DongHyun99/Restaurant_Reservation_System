@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean match() {
         getStringId = getIntent().getStringExtra("id");
+
         for (int i = 0; i < booking.size(); i++) {
             if (getStringId.equals(booking.get(i).getCustomer_id())) {
                 u_date = booking.get(i).getDate();
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         //달력 보여주는 함수
         java.util.Calendar cal = java.util.Calendar.getInstance();
         Intent intent = new Intent(getApplicationContext(), TImeTableActivity.class);
+        intent.putExtra("id",getStringId);
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -146,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("day", DAY);
                         intent.putExtra("month", MONTH);
                         intent.putExtra("year", YEAR);
+                        intent.putExtra("maxNum",max_num);
 
                         startActivity(intent);
                     }
@@ -179,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.25.25/reservation.php";
+                String site = "http://121.169.25.215/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();

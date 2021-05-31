@@ -1,14 +1,18 @@
 package com.restaurant_reservation_system.controllers;
 
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.restaurant_reservation_system.R;
 import com.restaurant_reservation_system.database.Booking;
+import com.restaurant_reservation_system.database.RegisterRequest;
+import com.restaurant_reservation_system.database.ReservationRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,28 +23,32 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
-    Date date;
+    String date;
+    String time;
+    int max_num;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        try {
-            String day = Integer.toString(getIntent().getIntExtra("day",1));
-            String month = Integer.toString(getIntent().getIntExtra("month",1)+1);
-            String year = Integer.toString(getIntent().getIntExtra("year",1));
-            DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-            date = dateFormat.parse(year+"."+month+"."+day);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        TextView covers = (TextView)findViewById(R.id.Covers_edit);
+        Spinner table_num = (Spinner)findViewById(R.id.table_spinner);
+        TextView time_pick = (TextView)findViewById(R.id.start_time);
+
+        String day = Integer.toString(getIntent().getIntExtra("day", 1));
+        String month = Integer.toString(getIntent().getIntExtra("month", 1) + 1);
+        String year = Integer.toString(getIntent().getIntExtra("year", 1));
+        max_num = getIntent().getIntExtra("maxNum",1)+1;
+        date = year + "." + month + "." + day;
 
         Button submit_btn = (Button) findViewById(R.id.submit_btn);
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView cover = (TextView) findViewById(R.id.Covers_edit);
-                String covers = cover.getText().toString();
+                String cover = covers.getText().toString();
+                String table = table_num.getSelectedItem().toString();
+
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -53,11 +61,31 @@ public class AddActivity extends AppCompatActivity {
                         }
                     }
                 };
-                ArrayList<Booking> newArray = TImeTableActivity.booking;
                 // 서버로 Volley를 이용해서 요청을 함.
+                ReservationRequest reservationRequest = new ReservationRequest(Integer.toString(max_num),cover,date,time,table,getIntent().getStringExtra("id") ,"0" ,responseListener);
+                System.out.println(Integer.toString(max_num)+", "+cover+", "+date+", "+time+", "+table+", "+getIntent().getStringExtra("id")+", "+"0" );
+                RequestQueue queue = Volley.newRequestQueue(AddActivity.this);
+                queue.add(reservationRequest);
 
 
             }
         });
+
+        time_pick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTime();
+            }
+        });
+    }
+
+    void showTime(){
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                time = Integer.toString(hourOfDay)+":"+Integer.toString(minute);
+            }
+        },12, 00, false);
+        timePickerDialog.show();
     }
 }

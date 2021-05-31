@@ -44,6 +44,11 @@
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                intent.putExtra("id", getIntent().getStringExtra("id"));
+                intent.putExtra("day", getIntent().getIntExtra("day",1));
+                intent.putExtra("month", getIntent().getIntExtra("month",1));
+                intent.putExtra("year", getIntent().getIntExtra("year",1));
+                intent.putExtra("maxNum", getIntent().getIntExtra("maxNum",1));
                 startActivity(intent);
             }
         });
@@ -102,8 +107,6 @@
                     DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
                     Date select1 = dateFormat.parse(inform[2].replace("-","."));
                     Date select2 = dateFormat.parse(year+"."+month+"."+day);
-                    System.out.println(select1);
-                    System.out.println(select2);
                     if (select1.equals(select2))
                         booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
                 }
