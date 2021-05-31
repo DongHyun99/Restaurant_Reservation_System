@@ -119,7 +119,7 @@ public class ListActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://121.169.25.215/reservation.php";
+                String site = "http://192.168.219.100/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -244,7 +244,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class UpDate extends StringRequest{
-        final static private String URL ="http://121.169.25.215/update_penalty.php";
+        final static private String URL ="http://192.168.219.100/update_penalty.php";
         private Map map;
         public UpDate(String id, String penalty, Response.Listener listener){
             super(Method.POST, URL, listener, null);
