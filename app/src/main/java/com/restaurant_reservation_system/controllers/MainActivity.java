@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("month", MONTH);
                         intent.putExtra("year", YEAR);
                         intent.putExtra("maxNum",max_num);
-
+                        intent.putExtra("penalty",getIntent().getStringExtra("penalty"));
                         startActivity(intent);
                     }
                 }
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://172.16.200.50/reservation.php";
+                String site = "http://192.168.219.100/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();

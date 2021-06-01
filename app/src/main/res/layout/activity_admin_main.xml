@@ -106,7 +106,7 @@
                             android:paddingTop="1dp"
                             android:paddingRight="15dp"/>
                     <Button
-                            android:id="@+id/btnArriveTime"
+                            android:id="@+id/noShow_btn"
                             android:layout_width="180dp"
                             android:layout_height="wrap_content"
                             android:background="@color/primaryBlue"

@@ -54,12 +54,13 @@ public class AdminMainActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(listener);
 
 
-        Button btnArrivalTime = (Button) findViewById(R.id.btnArriveTime);
+        Button btnArrivalTime = (Button) findViewById(R.id.noShow_btn);
         btnArrivalTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // 노쇼 리스트
-                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                startActivity(intent);
+                showDate();
+                //Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+               // startActivity(intent);
             }
         });
 
@@ -118,7 +119,7 @@ public class AdminMainActivity extends AppCompatActivity {
     void showDate() {
         //달력 보여주는 함수
         java.util.Calendar cal = java.util.Calendar.getInstance();
-        Intent intent = new Intent(getApplicationContext(), TImeTableActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         intent.putExtra("id", getStringId);
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -137,14 +138,14 @@ public class AdminMainActivity extends AppCompatActivity {
                         intent.putExtra("day", DAY);
                         intent.putExtra("month", MONTH);
                         intent.putExtra("year", YEAR);
-                        intent.putExtra("maxNum", max_num);
+                       // intent.putExtra("maxNum", max_num);
 
                         startActivity(intent);
                     }
                 }
         );
 
-        datePickerDialog.setMessage("예약할 날짜를 선택해주세요");
+        datePickerDialog.setMessage("날짜를 선택해주세요");
         datePickerDialog.show();
 
     }
@@ -170,7 +171,7 @@ public class AdminMainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://172.16.200.50/reservation.php";
+                String site = "http://192.168.219.100/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
