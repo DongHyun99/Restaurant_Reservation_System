@@ -30,6 +30,7 @@ import java.util.Date;
 public class TImeTableActivity extends AppCompatActivity {
 
     static ArrayList<Booking> booking;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +137,10 @@ public class TImeTableActivity extends AppCompatActivity {
                     Date select2 = dateFormat.parse(year + "." + month + "." + day);
                     if (select1.equals(select2))
                         booking.add(new Booking(inform[0], inform[1], inform[2], inform[3], inform[4], inform[5], inform[6]));
+
                 }
+
+
 
                 TimetableView timetable = (TimetableView) findViewById(R.id.timetable);
                 ArrayList<Schedule> schedules = new ArrayList<Schedule>();
@@ -161,14 +165,14 @@ public class TImeTableActivity extends AppCompatActivity {
 
     void view_edit(EditText etEdit){
         String inputValue = etEdit.getText().toString();
-        Intent intent = new Intent(this, EditActivity.class);
+        intent = new Intent(getApplicationContext(), EditActivity.class);
+        intent.putExtra("booking", booking);
         intent.putExtra("reservation_num", inputValue);
         intent.putExtra("id", getIntent().getStringExtra("id"));
         intent.putExtra("day", getIntent().getIntExtra("day", -1));
         intent.putExtra("month", getIntent().getIntExtra("month", -1));
         intent.putExtra("year", getIntent().getIntExtra("year", -1));
         intent.putExtra("maxNum", getIntent().getIntExtra("maxNum", -1));
-        intent.putExtra("booking_Array", booking);
         startActivity(intent);
     }
 }

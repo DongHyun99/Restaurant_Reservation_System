@@ -55,8 +55,9 @@ public class EditActivity extends AppCompatActivity {
         month = getIntent().getIntExtra("month", -1);
         year = getIntent().getIntExtra("year",-1);
         maxNum = getIntent().getIntExtra("maxNum",1);
-        ArrayList<Booking> bookings = (ArrayList<Booking>) getIntent().getSerializableExtra("booking_Array");
+        ArrayList<Booking> bookings = (ArrayList<Booking>) getIntent().getParcelableExtra("booking");
         // ArrayList 에서 예약 번호와 같은 booking 찾기
+        System.out.println(bookings.get(0).getCustomer_id());
         for (Booking element: bookings){
             if (element.getReservation_num().equals(reservation_num))
                 booking = element;

@@ -13,7 +13,7 @@ public class ReservationRequest extends StringRequest {
     private Map<String, String> map;
 
 
-    public ReservationRequest(String rNum, String covers, String date, String time, String tableID, String customerID,String arrivalTime, Response.Listener<String> listener) {
+    public ReservationRequest(String rNum, String covers, String date, String time, String tableID, String customerID, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
@@ -23,7 +23,6 @@ public class ReservationRequest extends StringRequest {
         map.put("TIME", time);
         map.put("table_id", tableID);
         map.put("customer_id", customerID);
-        map.put("arrivalTime", arrivalTime);
     }
 
     @Override

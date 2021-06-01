@@ -1,6 +1,8 @@
 package com.restaurant_reservation_system.database;
 
-public class Booking {
+import java.io.Serializable;
+
+public class Booking implements Serializable {
 
     String reservation_num;
     String covers;
