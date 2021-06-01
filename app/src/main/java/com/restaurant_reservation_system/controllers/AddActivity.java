@@ -27,7 +27,8 @@ public class AddActivity extends AppCompatActivity {
     String date;
     String time;
     int max_num;
-
+    TextView time_pick;
+    String [] t1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,7 @@ public class AddActivity extends AppCompatActivity {
 
         TextView covers = (TextView)findViewById(R.id.Covers_add);
         Spinner table_num = (Spinner)findViewById(R.id.add_table_spinner);
-        TextView time_pick = (TextView)findViewById(R.id.add_start_time);
+        time_pick = (TextView)findViewById(R.id.add_start_time);
 
         String day = Integer.toString(getIntent().getIntExtra("day", 1));
         String month = Integer.toString(getIntent().getIntExtra("month", 1) + 1);
@@ -48,8 +49,7 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String cover = covers.getText().toString();
-                String table = Integer.toString(Integer.parseInt(table_num.getSelectedItem().toString())-1);
-
+                String table = Integer.toString(Integer.parseInt(table_num.getSelectedItem().toString()));
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -63,7 +63,6 @@ public class AddActivity extends AppCompatActivity {
                     }
                 };
                 // 서버로 Volley를 이용해서 요청을 함.
-                System.out.println(Integer.toString(max_num)+cover+date+time+table+getIntent().getStringExtra("id")+responseListener);
                 ReservationRequest reservationRequest = new ReservationRequest(Integer.toString(max_num),cover,date,time,table,getIntent().getStringExtra("id"),responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AddActivity.this);
                 queue.add(reservationRequest);

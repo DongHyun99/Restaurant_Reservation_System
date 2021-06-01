@@ -8,8 +8,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.restaurant_reservation_system.R;
 import com.restaurant_reservation_system.database.Booking;
+import com.restaurant_reservation_system.database.ReservationRequest;
+import com.restaurant_reservation_system.database.ReservationRequest2;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -43,6 +50,21 @@ public class EditActivity extends AppCompatActivity {
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                // 서버로 Volley를 이용해서 요청을 함.
+                ReservationRequest2 reservationRequest = new ReservationRequest2(reservation_num,responseListener);
+                RequestQueue queue = Volley.newRequestQueue(EditActivity.this);
+                queue.add(reservationRequest);
             }
         });
     }
@@ -55,7 +77,7 @@ public class EditActivity extends AppCompatActivity {
         month = getIntent().getIntExtra("month", -1);
         year = getIntent().getIntExtra("year",-1);
         maxNum = getIntent().getIntExtra("maxNum",1);
-        ArrayList<Booking> bookings = (ArrayList<Booking>) getIntent().getParcelableExtra("booking");
+        ArrayList<Booking> bookings = (ArrayList<Booking>) getIntent().getSerializableExtra("booking");
         // ArrayList 에서 예약 번호와 같은 booking 찾기
         System.out.println(bookings.get(0).getCustomer_id());
         for (Booking element: bookings){

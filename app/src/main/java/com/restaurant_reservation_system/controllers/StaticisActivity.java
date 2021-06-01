@@ -52,7 +52,7 @@ public class StaticisActivity extends AppCompatActivity {
         mlistView.addHeaderView(header) ;
 
         GetData task = new GetData();
-        task.execute("http://172.16.200.50/getjson.php");
+        task.execute("http://192.168.219.100/getjson.php");
     }
 
 

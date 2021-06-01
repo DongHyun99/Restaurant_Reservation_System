@@ -31,10 +31,10 @@ public class TImeTableActivity extends AppCompatActivity {
 
     static ArrayList<Booking> booking;
     Intent intent;
-
+    String user_Penalty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        user_Penalty = getIntent().getStringExtra("penalty");
         booking = new ArrayList<Booking>();
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -47,13 +47,18 @@ public class TImeTableActivity extends AppCompatActivity {
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
-                intent.putExtra("id", getIntent().getStringExtra("id"));
-                intent.putExtra("day", getIntent().getIntExtra("day", -1));
-                intent.putExtra("month", getIntent().getIntExtra("month", -1));
-                intent.putExtra("year", getIntent().getIntExtra("year", -1));
-                intent.putExtra("maxNum", getIntent().getIntExtra("maxNum", -1));
-                startActivity(intent);
+                if (user_Penalty.equals("F")) {
+                    Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                    intent.putExtra("id", getIntent().getStringExtra("id"));
+                    intent.putExtra("day", getIntent().getIntExtra("day", -1));
+                    intent.putExtra("month", getIntent().getIntExtra("month", -1));
+                    intent.putExtra("year", getIntent().getIntExtra("year", -1));
+                    intent.putExtra("maxNum", getIntent().getIntExtra("maxNum", -1));
+                    startActivity(intent);
+                }
+                else{
+                    onClickShowAlert(v);
+                }
             }
         });
 
@@ -81,6 +86,25 @@ public class TImeTableActivity extends AppCompatActivity {
             }
         }));
     }
+    public void onClickShowAlert(View view) {
+        android.app.AlertDialog.Builder myAlertBuilder =
+                new android.app.AlertDialog.Builder(TImeTableActivity.this);
+        // alert의 title과 Messege 세팅
+        myAlertBuilder.setTitle("Alert");
+        myAlertBuilder.setMessage("노쇼 리스트 명단 대상자로 예약이 불가합니다.");
+        // 버튼 추가 (Ok 버튼과 Cancle 버튼 )
+        myAlertBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // OK 버튼을 눌렸을 경우
+                Toast.makeText(getApplicationContext(), "Pressed OK",
+                        Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(TImeTableActivity.this, MainActivity.class);
+                // startActivity(intent);
+            }
+        });
+        // Alert를 생성해주고 보여주는 메소드(show를 선언해야 Alert가 생성됨)
+        myAlertBuilder.show();
+    }
 
     @Override
     protected void onPause() {
@@ -92,7 +116,7 @@ public class TImeTableActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://172.16.200.50/reservation.php";
+                String site = "http://192.168.219.100/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
