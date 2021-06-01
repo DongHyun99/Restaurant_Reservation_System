@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -46,6 +47,9 @@ public class StaticisActivity extends AppCompatActivity {
 
         mlistView = (ListView) findViewById(R.id.listView_main_list);
         mArrayList = new ArrayList<>();
+
+        final View header = getLayoutInflater().inflate(R.layout.activity_staticislist_header, null, false) ;
+        mlistView.addHeaderView(header) ;
 
         GetData task = new GetData();
         task.execute("http://172.16.200.50/getjson.php");
