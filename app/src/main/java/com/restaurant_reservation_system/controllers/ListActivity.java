@@ -1,12 +1,9 @@
 package com.restaurant_reservation_system.controllers;
-import android.os.PersistableBundle;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +14,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.tlaabs.timetableview.Schedule;
-import com.github.tlaabs.timetableview.Time;
-import com.github.tlaabs.timetableview.TimetableView;
 import com.restaurant_reservation_system.R;
 import com.restaurant_reservation_system.database.Booking;
 import com.restaurant_reservation_system.database.SingleItem;
@@ -119,7 +113,7 @@ public class ListActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.25.25/reservation.php";
+                String site = "http://121.169.25.215/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -244,7 +238,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class UpDate extends StringRequest{
-        final static private String URL ="http://192.168.25.25/update_penalty.php";
+        final static private String URL ="http://121.169.25.215/update_penalty.php";
         private Map map;
         public UpDate(String id, String penalty, Response.Listener listener){
             super(Method.POST, URL, listener, null);

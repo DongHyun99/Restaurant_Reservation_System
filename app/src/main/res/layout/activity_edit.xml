@@ -67,17 +67,24 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom">
+            android:gravity="bottom"
+            android:orientation="vertical">
 
         <Button
                 android:id="@+id/delete_btn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:text="delete"
+                android:layout_alignParentBottom="true"
+                android:background="@color/primaryBlue"
+                android:textColor="@color/colorInverted"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif"
         />
 
         <Button
+                android:layout_marginTop="1dp"
                 android:id="@+id/submit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

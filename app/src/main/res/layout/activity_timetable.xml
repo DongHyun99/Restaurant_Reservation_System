@@ -36,7 +36,19 @@
                 android:layout_height="wrap_content"
                 android:background="@color/primaryBlue"
                 android:textColor="@color/colorInverted"
-                android:text="Add"/>
+                android:text="Add"
+                android:layout_margin="1dp"
+                android:layout_weight="10"/>
+
+        <Button
+                android:id="@+id/edit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryBlue"
+                android:textColor="@color/colorInverted"
+                android:text="edit / delete"
+                android:layout_margin="1dp"
+                android:layout_weight="10"/>
 
     </LinearLayout>
 

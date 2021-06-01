@@ -31,11 +31,11 @@ public class AddActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit);
+        setContentView(R.layout.activity_add);
 
-        TextView covers = (TextView)findViewById(R.id.Covers_edit);
-        Spinner table_num = (Spinner)findViewById(R.id.table_spinner);
-        TextView time_pick = (TextView)findViewById(R.id.start_time);
+        TextView covers = (TextView)findViewById(R.id.Covers_add);
+        Spinner table_num = (Spinner)findViewById(R.id.add_table_spinner);
+        TextView time_pick = (TextView)findViewById(R.id.add_start_time);
 
         String day = Integer.toString(getIntent().getIntExtra("day", 1));
         String month = Integer.toString(getIntent().getIntExtra("month", 1) + 1);
@@ -43,7 +43,7 @@ public class AddActivity extends AppCompatActivity {
         max_num = getIntent().getIntExtra("maxNum",1);
         date = year + "-" + month + "-" + day;
 
-        Button submit_btn = (Button) findViewById(R.id.submit_btn);
+        Button submit_btn = (Button) findViewById(R.id.add_submit_btn);
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,13 +63,13 @@ public class AddActivity extends AppCompatActivity {
                     }
                 };
                 // 서버로 Volley를 이용해서 요청을 함.
-                ReservationRequest reservationRequest = new ReservationRequest(Integer.toString(max_num),cover,date,time,table,getIntent().getStringExtra("id") ,"0" ,responseListener);
-                System.out.println(Integer.toString(max_num)+", "+cover+", "+date+", "+time+", "+table+", "+getIntent().getStringExtra("id")+", "+"0" );
+                ReservationRequest reservationRequest = new ReservationRequest(Integer.toString(max_num),cover,date,time,table,getIntent().getStringExtra("id") ,"(NULL)" ,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AddActivity.this);
                 queue.add(reservationRequest);
 
                 Toast.makeText(getApplicationContext(),"예약이 추가되었습니다.",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),TImeTableActivity.class);
+                intent.putExtra("id",getIntent().getStringExtra("id"));
                 intent.putExtra("day", getIntent().getIntExtra("day", 1));
                 intent.putExtra("month",getIntent().getIntExtra("month", 1));
                 intent.putExtra("year", getIntent().getIntExtra("year", 1));
