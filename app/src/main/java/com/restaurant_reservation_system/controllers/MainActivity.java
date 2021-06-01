@@ -51,7 +51,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        inform_search();
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerView = (View) findViewById(R.id.drawerView);
+        drawerLayout.setDrawerListener(listener);
+
+
+        Button btnReservation = (Button) findViewById(R.id.btnTimeTable);
+        btnReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { // 예약
+
+                showDate();
+
+            }
+        });
+        Button btnWatingList= (Button) findViewById(R.id.btnWaitingList);
+        btnWatingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { // 대기 리스트
+
+            }
+        });
+
+    }
+
+    private void inform_search() {
         getStringName = getIntent().getStringExtra("name");
         name = (TextView)findViewById(R.id.name);
         name.setText(getStringName+" 님");
@@ -77,31 +103,6 @@ public class MainActivity extends AppCompatActivity {
             covers = (TextView) findViewById(R.id.covers);
             covers.setText("아직 예약을 하지 않았습니다.");
         }
-
-
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerView = (View) findViewById(R.id.drawerView);
-        drawerLayout.setDrawerListener(listener);
-
-
-        Button btnReservation = (Button) findViewById(R.id.btnTimeTable);
-        btnReservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { // 예약
-
-                showDate();
-
-            }
-        });
-        Button btnWatingList= (Button) findViewById(R.id.btnWaitingList);
-        btnWatingList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { // 대기 리스트
-
-            }
-        });
-
     }
 
     public boolean match() {
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.0.84/reservation.php";
+                String site = "http://192.168.25.25/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
