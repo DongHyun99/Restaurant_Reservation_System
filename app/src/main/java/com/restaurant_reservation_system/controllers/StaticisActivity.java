@@ -48,7 +48,7 @@ public class StaticisActivity extends AppCompatActivity {
         mArrayList = new ArrayList<>();
 
         GetData task = new GetData();
-        task.execute("http://121.169.25.215/getjson.php");
+        task.execute("http://172.16.200.50/getjson.php");
     }
 
 

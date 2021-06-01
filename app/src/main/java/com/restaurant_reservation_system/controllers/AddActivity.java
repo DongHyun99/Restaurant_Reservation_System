@@ -63,6 +63,7 @@ public class AddActivity extends AppCompatActivity {
                     }
                 };
                 // 서버로 Volley를 이용해서 요청을 함.
+                System.out.println(time);
                 ReservationRequest reservationRequest = new ReservationRequest(Integer.toString(max_num),cover,date,time,table,getIntent().getStringExtra("id") ,"(NULL)" ,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AddActivity.this);
                 queue.add(reservationRequest);

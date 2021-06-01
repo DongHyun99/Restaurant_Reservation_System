@@ -14,7 +14,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:usesCleartextTraffic="true">
+            android:usesCleartextTraffic="true"
+            android:hardwareAccelerated="false">
         <activity
                 android:name="com.restaurant_reservation_system.controllers.LaunchActivity"
                 android:theme="@style/AppTheme.launch">

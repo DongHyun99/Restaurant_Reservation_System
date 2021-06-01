@@ -67,16 +67,7 @@ public class TImeTableActivity extends AppCompatActivity {
 // OK 버튼 이벤트
                 dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        String inputValue = etEdit.getText().toString();
-                        Intent intent = new Intent(this, EditActivity.class);
-                        intent.putExtra("reservation_num", inputValue);
-                        intent.putExtra("id", getIntent().getStringExtra("id"));
-                        intent.putExtra("day", getIntent().getIntExtra("day", -1));
-                        intent.putExtra("month", getIntent().getIntExtra("month", -1));
-                        intent.putExtra("year", getIntent().getIntExtra("year", -1));
-                        intent.putExtra("maxNum", getIntent().getIntExtra("maxNum", -1));
-                        intent.putExtra("booking_Array", booking);
-                        startActivity(intent);
+                        view_edit(etEdit);
                     }
                 });
 // Cancel 버튼 이벤트
@@ -100,7 +91,7 @@ public class TImeTableActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://121.169.25.215/reservation.php";
+                String site = "http://172.16.200.50/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -167,4 +158,17 @@ public class TImeTableActivity extends AppCompatActivity {
         }
 
     };
+
+    void view_edit(EditText etEdit){
+        String inputValue = etEdit.getText().toString();
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("reservation_num", inputValue);
+        intent.putExtra("id", getIntent().getStringExtra("id"));
+        intent.putExtra("day", getIntent().getIntExtra("day", -1));
+        intent.putExtra("month", getIntent().getIntExtra("month", -1));
+        intent.putExtra("year", getIntent().getIntExtra("year", -1));
+        intent.putExtra("maxNum", getIntent().getIntExtra("maxNum", -1));
+        intent.putExtra("booking_Array", booking);
+        startActivity(intent);
+    }
 }
