@@ -34,6 +34,13 @@
                 android:layout_weight="1"
                 android:inputType="textPersonName"
                 android:hint="Arrival_Time"/>
+        <EditText
+                android:id="@+id/arrivedate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textPersonName"
+                android:hint="yyyy-mm-dd"/>
 
     </LinearLayout>
     <ListView

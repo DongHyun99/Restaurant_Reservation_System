@@ -34,6 +34,7 @@ public class ListActivity extends AppCompatActivity {
     SingleAdapter adapter;
     EditText user_id;
     EditText arrival_time;
+    EditText resevationDate;
     ArrayList<User> users= LoginActivity.userArray;
     static HashMap<String,String> noShow = new HashMap<>() ;
     ArrayList<SingleItem> items = new ArrayList<SingleItem>();
@@ -47,6 +48,7 @@ public class ListActivity extends AppCompatActivity {
 
         user_id = (EditText) findViewById(R.id.user_id);
         arrival_time = (EditText) findViewById(R.id.arrival_time);
+        resevationDate=(EditText) findViewById(R.id.arrivedate);
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
@@ -80,9 +82,10 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String id = user_id.getText().toString();
                 String time = arrival_time.getText().toString();
+                String date= resevationDate.getText().toString();//
                 Booking b = null;
                 for (int i = 0; i < booking.size(); i++) {
-                    if (booking.get(i).getCustomer_id().equals(id)) {
+                    if (booking.get(i).getCustomer_id().equals(id)&&booking.get(i).getDate().equals(date)) {
                         b = booking.get(i);
                         break;
                     }
@@ -113,7 +116,7 @@ public class ListActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.219.100/reservation.php";
+                String site = "http://192.168.45.170/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -238,7 +241,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class UpDate extends StringRequest{
-        final static private String URL ="http://192.168.219.100/update_penalty.php";
+        final static private String URL ="http://192.168.45.170/update_penalty.php";
         private Map map;
         public UpDate(String id, String penalty, Response.Listener listener){
             super(Method.POST, URL, listener, null);
