@@ -1,7 +1,7 @@
 
 <?php 
 
-   $con=mysqli_connect("127.0.0.1","root","","rrs");
+   $con=mysqli_connect("127.0.0.1","root","****","rrs");
    mysqli_set_charset($con,"utf8");
    $data_stream = "'".$_POST['id']."','".$_POST['pw']."','".$_POST['NAME']."','".$_POST['phoneNumber']."','".$_POST['penalty']."','".$_POST['admin']."'";
    

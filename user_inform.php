@@ -1,5 +1,5 @@
 <?php
-	$con=mysqli_connect("127.0.0.1","root","","rrs");
+	$con=mysqli_connect("127.0.0.1","root","****","rrs");
 	mysqli_set_charset($con,"utf8");
 	
 	$res1 = mysqli_query($con,"select * from User_inform");

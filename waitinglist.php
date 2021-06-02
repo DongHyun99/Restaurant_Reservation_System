@@ -1,7 +1,7 @@
 
 <?php  
 
-$link=mysqli_connect("localhost","root","", "rrs" );  
+$link=mysqli_connect("localhost","root","****", "rrs" );  
 if (!$link)  
 {  
    echo "MySQL 접속 에러 : ";

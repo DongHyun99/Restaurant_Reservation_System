@@ -1,6 +1,6 @@
 <?php 
 
-   $con=mysqli_connect("127.0.0.1","root","","rrs");
+   $con=mysqli_connect("127.0.0.1","root","****","rrs");
    mysqli_set_charset($con,"utf8");
    $data_stream = "'".$_POST['name']."','".$_POST['phone']."','".$_POST['arrivalday']."','".$_POST['arrivaltime']."','".$_POST['covers']."'";
    
