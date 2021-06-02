@@ -74,6 +74,7 @@ public class AddActivity extends AppCompatActivity {
                 intent.putExtra("month",getIntent().getIntExtra("month", 1));
                 intent.putExtra("year", getIntent().getIntExtra("year", 1));
                 intent.putExtra("maxNum",max_num+1);
+                intent.putExtra("penalty", getIntent().getStringExtra("penalty"));
                 startActivity(intent);
 
 

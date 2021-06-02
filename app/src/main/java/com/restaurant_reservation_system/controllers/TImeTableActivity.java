@@ -54,6 +54,7 @@ public class TImeTableActivity extends AppCompatActivity {
                     intent.putExtra("month", getIntent().getIntExtra("month", -1));
                     intent.putExtra("year", getIntent().getIntExtra("year", -1));
                     intent.putExtra("maxNum", getIntent().getIntExtra("maxNum", -1));
+                    intent.putExtra("penalty", getIntent().getStringExtra("penalty"));
                     startActivity(intent);
                 }
                 else{
@@ -197,6 +198,7 @@ public class TImeTableActivity extends AppCompatActivity {
         intent.putExtra("month", getIntent().getIntExtra("month", -1));
         intent.putExtra("year", getIntent().getIntExtra("year", -1));
         intent.putExtra("maxNum", getIntent().getIntExtra("maxNum", -1));
+        intent.putExtra("penalty", getIntent().getStringExtra("penalty"));
         startActivity(intent);
     }
 }

@@ -3,10 +3,7 @@ package com.restaurant_reservation_system.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,7 +19,7 @@ import java.util.ArrayList;
 
 public class EditActivity extends AppCompatActivity {
 
-    String reservation_num, id;
+    String reservation_num, id, penalty;
     int day, month, year, maxNum;
     Booking booking;
 
@@ -56,6 +53,12 @@ public class EditActivity extends AppCompatActivity {
                         try{
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
+                            if(success){
+                                Toast.makeText(EditActivity.this,"삭제완료",Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(EditActivity.this,"삭제실패",Toast.LENGTH_SHORT).show();
+                            }
                         }catch (JSONException e){
                             e.printStackTrace();
                         }
@@ -65,6 +68,9 @@ public class EditActivity extends AppCompatActivity {
                 ReservationRequest2 reservationRequest = new ReservationRequest2(reservation_num,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(EditActivity.this);
                 queue.add(reservationRequest);
+                Intent intent = new Intent(getApplicationContext(), TImeTableActivity.class);
+                pushing(intent);
+                startActivity(intent);
             }
         });
     }
@@ -77,6 +83,7 @@ public class EditActivity extends AppCompatActivity {
         month = getIntent().getIntExtra("month", -1);
         year = getIntent().getIntExtra("year",-1);
         maxNum = getIntent().getIntExtra("maxNum",1);
+        penalty = getIntent().getStringExtra("penalty");
         ArrayList<Booking> bookings = (ArrayList<Booking>) getIntent().getSerializableExtra("booking");
         // ArrayList 에서 예약 번호와 같은 booking 찾기
         System.out.println(bookings.get(0).getCustomer_id());
@@ -94,7 +101,17 @@ public class EditActivity extends AppCompatActivity {
         spinner = findViewById(R.id.table_spinner);
         time = findViewById(R.id.start_time);
         covers.setText(booking.getCovers());
-        spinner.setSelection(Integer.parseInt(booking.getTable_id())+1);
+        spinner.setSelection(Integer.parseInt(booking.getTable_id()));
         time.setText(booking.getTime()+"-"+Integer.toString(endTime)+":"+"0");
+    }
+    void pushing(Intent intent){
+        intent.putExtra("booking", booking);
+        intent.putExtra("reservation_num", getIntent().getStringExtra("reservation_num"));
+        intent.putExtra("id", getIntent().getStringExtra("id"));
+        intent.putExtra("day", getIntent().getIntExtra("day", -1));
+        intent.putExtra("month", getIntent().getIntExtra("month", -1));
+        intent.putExtra("year", getIntent().getIntExtra("year", -1));
+        intent.putExtra("maxNum", getIntent().getIntExtra("maxNum", -1));
+        intent.putExtra("penalty", getIntent().getStringExtra("penalty"));
     }
 }
