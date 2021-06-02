@@ -130,31 +130,7 @@ public class ArrivalListActivity extends AppCompatActivity {
                     adapter.addItem(new SingleItem(id, time, R.drawable.logo1));
                     adapter.notifyDataSetChanged();
                     listView.setAdapter(adapter);
-                    Response.Listener<String> res = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try{
-                                JSONObject jsonObject = new JSONObject(response);
-                                boolean success = jsonObject.getBoolean("success");
-                                if(success){
-                                    Toast.makeText(ArrivalListActivity.this,"수정완료",Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(ArrivalListActivity.this,"수정실패",Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                return;
-                            }
-                        }
-                    };
-                    user_id = (EditText) findViewById(R.id.user_id);
-                    arrival_time = (EditText) findViewById(R.id.arrival_time);
-                    //String id = user_id.getText().toString();
-                    String time = arrival_time.getText().toString();
-                    ArrivalRequest aq = new ArrivalRequest(id, time, res);
-                    RequestQueue queue1 = Volley.newRequestQueue(ArrivalListActivity.this);
-                    queue1.add(aq);
+                    upDate();
 
                     String[] t1 = null;
                     String[] t2 = null;
@@ -226,7 +202,7 @@ public class ArrivalListActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.45.128/reservation.php";
+                String site = "http://192.168.219.100/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -318,7 +294,7 @@ public class ArrivalListActivity extends AppCompatActivity {
         }
     }
 
-    /*public void upDate (){
+    public void upDate (){
 
         Response.Listener<String> res = new Response.Listener<String>() {
             @Override
@@ -347,7 +323,7 @@ public class ArrivalListActivity extends AppCompatActivity {
         ArrivalRequest aq = new ArrivalRequest(id, time, res);
         RequestQueue queue1 = Volley.newRequestQueue(ArrivalListActivity.this);
         queue1.add(aq);
-    }*/
+    }
 
     public void upDate2 (){
 
@@ -380,7 +356,7 @@ public class ArrivalListActivity extends AppCompatActivity {
     }
 
     class UpDate2 extends StringRequest{
-        final static private String URL ="http://192.168.45.128/update_penalty.php";
+        final static private String URL ="http://192.168.219.100/update_penalty.php";
         private Map map;
         public UpDate2(String id, String penalty, Response.Listener listener){
             super(Method.POST, URL, listener, null);

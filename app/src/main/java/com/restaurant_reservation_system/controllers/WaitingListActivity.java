@@ -51,7 +51,7 @@ public class WaitingListActivity extends AppCompatActivity {
         wlistView.addHeaderView(header) ;
 
         GetData task = new GetData();
-        task.execute("http://192.168.45.128/waitinglist.php");
+        task.execute("http://192.168.219.100/waitinglist.php");
     }
 
 
