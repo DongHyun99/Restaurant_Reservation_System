@@ -46,6 +46,6 @@ INSERT INTO ttable (NUMBER, places) VALUES(1,1);
 INSERT INTO ttable (NUMBER, places) VALUES(2,2);
 INSERT INTO ttable (NUMBER, places) VALUES(3,3);
 
-INSERT INTO reservation (reservation_num,covers,DATE,TIME,table_id,customer_id,arrivaltime) VALUES("0001","3","2021-05-19","19:00","2","mpolio2","18:30");
-INSERT INTO reservation (reservation_num,covers,DATE,TIME,table_id,customer_id,arrivaltime) VALUES("0002","3","2021-05-19","12:00","2","pony0528","18:30");
-INSERT INTO reservation (reservation_num,covers,DATE,TIME,table_id,customer_id,arrivaltime) VALUES("0003","3","2021-06-02","13:00","2","rojin","00:00");
+INSERT INTO reservation (reservation_num,covers,DATE,TIME,table_id,customer_id,arrivaltime) VALUES("1","3","2021-05-19","19:00","2","mpolio2","18:30");
+INSERT INTO reservation (reservation_num,covers,DATE,TIME,table_id,customer_id,arrivaltime) VALUES("2","3","2021-05-19","12:00","2","pony0528","18:30");
+INSERT INTO reservation (reservation_num,covers,DATE,TIME,table_id,customer_id,arrivaltime) VALUES("3","3","2021-06-02","13:00","2","rojin","00:00");
