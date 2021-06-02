@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.restaurant_reservation_system.R;
+import com.restaurant_reservation_system.database.ArrivalRequest;
 import com.restaurant_reservation_system.database.Booking;
 import com.restaurant_reservation_system.database.SingleItem;
 import com.restaurant_reservation_system.database.User;
@@ -28,60 +29,79 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ListActivity extends AppCompatActivity {
+public class ArrivalListActivity extends AppCompatActivity {
     SingleAdapter adapter;
     EditText user_id;
     EditText arrival_time;
+    String time;
     ArrayList<User> users= LoginActivity.userArray;
-    static HashMap<String,String> noShow = new HashMap<>() ;
+    static HashMap<String,ListData> arrival = new HashMap<>() ;
     ArrayList<SingleItem> items = new ArrayList<SingleItem>();
     String penalty;
-    ArrayList<Booking> booking = new ArrayList<>();
+    ArrayList<Booking> bk= AdminMainActivity.booking;
     String date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_main);
+        setContentView(R.layout.activity_arrival_list_main);
 
         user_id = (EditText) findViewById(R.id.user_id);
         arrival_time = (EditText) findViewById(R.id.arrival_time);
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
-        Thread thread = new Thread(runnable);
-        thread.start();
+        //Thread thread = new Thread(runnable);
+       // thread.start();
+
+
+        int day =getIntent().getIntExtra("day", 1);
+        int month =getIntent().getIntExtra("month", 1) + 1;
+        String day2 = null;
+        String month2 =null;
+        if(day<10)
+            day2="0"+Integer.toString(day);
+        else
+            day2=Integer.toString(day);
+        if(month<10)
+            month2="0"+Integer.toString(month);
+        else
+            month2=Integer.toString(month);
+        String year = Integer.toString(getIntent().getIntExtra("year", 1));
+        date = year + "-" + month2 + "-" + day2;
 
         // 어댑터 안에 데이터 담기
         adapter = new SingleAdapter();
 
-        for(int i=0; i<users.size();i++){
-            if(users.get(i).getPenalty().equals("T")){
-                adapter.addItem(new SingleItem(users.get(i).getID(),"NO SHOW",R.drawable.logo1));
-            }
-        }
-        if(!noShow.isEmpty()){
-            Iterator<String> keys =noShow.keySet().iterator();
+        if(!arrival.isEmpty()){
+            Iterator<String> keys =arrival.keySet().iterator();
             while( keys.hasNext() ){
                 String key = keys.next();
-                adapter.addItem(new SingleItem(key,"NO SHOW",R.drawable.logo1));
+                if(date.equals(arrival.get(key).getDate()))
+                adapter.addItem(new SingleItem(key,arrival.get(key).getTime(),R.drawable.logo1));
             }}
 
+        for(int i=0; i<bk.size();i++){
+            if(bk.get(i).getDate().equals(date) && !bk.get(i).getArrivalTime().equals("00:00"))
+                adapter.addItem(new SingleItem(bk.get(i).getCustomer_id(),bk.get(i).getArrivalTime(),R.drawable.logo1));
+        }
         // 리스트 뷰에 어댑터 설정
         listView.setAdapter(adapter);
 
 
 
         // 버튼 눌렀을 때 우측 이름, 전화번호가 리스트뷰에 포함되도록 처리
-        /*Button button = (Button) findViewById(R.id.AddList_btn);
+        Button button = (Button) findViewById(R.id.AddList_btn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String id = user_id.getText().toString();
-                String time = arrival_time.getText().toString();
+                time = arrival_time.getText().toString();
 
                 int day =getIntent().getIntExtra("day", 1);
                 int month =getIntent().getIntExtra("month", 1) + 1;
@@ -98,13 +118,46 @@ public class ListActivity extends AppCompatActivity {
                 String year = Integer.toString(getIntent().getIntExtra("year", 1));
                 date = year + "-" + month2 + "-" + day2;
                 Booking b = null;
-                for (int i = 0; i < booking.size(); i++) {
-                    if (booking.get(i).getCustomer_id().equals(id)&&booking.get(i).getDate().equals(date)) {
-                        b = booking.get(i);
+                for (int i = 0; i < bk.size(); i++) {
+                    if (bk.get(i).getCustomer_id().equals(id)&&bk.get(i).getDate().equals(date)) {
+                        b = bk.get(i);
                         break;
                     }
                 }
                 if(b!=null){
+
+                    arrival.put(id,new ListData(date,time));
+                    adapter.addItem(new SingleItem(id, time, R.drawable.logo1));
+                    adapter.notifyDataSetChanged();
+                    listView.setAdapter(adapter);
+                    Response.Listener<String> res = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try{
+                                JSONObject jsonObject = new JSONObject(response);
+                                boolean success = jsonObject.getBoolean("success");
+                                if(success){
+                                    Toast.makeText(ArrivalListActivity.this,"수정완료",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(ArrivalListActivity.this,"수정실패",Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                return;
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    user_id = (EditText) findViewById(R.id.user_id);
+                    arrival_time = (EditText) findViewById(R.id.arrival_time);
+                    //String id = user_id.getText().toString();
+                    String time = arrival_time.getText().toString();
+                    ArrivalRequest aq = new ArrivalRequest(id, time, res);
+                    RequestQueue queue1 = Volley.newRequestQueue(ArrivalListActivity.this);
+                    queue1.add(aq);
+
                     String[] t1 = null;
                     String[] t2 = null;
                     t1 = b.getTime().split(":");
@@ -113,11 +166,8 @@ public class ListActivity extends AppCompatActivity {
                     int real_arrive = Integer.parseInt(t2[0])*100+Integer.parseInt(t2[1]);
 
                     if (real_arrive-reservation_time>0) {
-                        adapter.addItem(new SingleItem(id, time, R.drawable.logo1));
-                        adapter.notifyDataSetChanged();
-                        listView.setAdapter(adapter);
-                        upDate();
-                        noShow.put(id,time);
+                        ListActivity.noShow.put(id,time);
+                        upDate2();
                     }
                 }else{
                     onClickShowAlert(v);
@@ -126,11 +176,11 @@ public class ListActivity extends AppCompatActivity {
 
 //여기까지
             }
-        });*/
+        });
     }
-    /*public void onClickShowAlert(View view) {
+    public void onClickShowAlert(View view) {
         AlertDialog.Builder myAlertBuilder =
-                new AlertDialog.Builder(ListActivity.this);
+                new AlertDialog.Builder(ArrivalListActivity.this);
         // alert의 title과 Messege 세팅
         myAlertBuilder.setTitle("Alert");
         myAlertBuilder.setMessage("해당 날짜에 일치하는 손님은 없습니다.");
@@ -146,10 +196,35 @@ public class ListActivity extends AppCompatActivity {
         });
         // Alert를 생성해주고 보여주는 메소드(show를 선언해야 Alert가 생성됨)
         myAlertBuilder.show();
-    }*/
+    }
+
+     class ListData{
+        String date;
+        String time;
+       public ListData(String date, String time){
+            this.date = date;
+            this.time = time;
+         }
+
+         public String getDate() {
+             return date;
+         }
+
+         public void setDate(String date) {
+             this.date = date;
+         }
+
+         public String getTime() {
+             return time;
+         }
+
+         public void setTime(String time) {
+             this.time = time;
+         }
+     }
 
 
-    Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
+   /* Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
         @Override
         public void run() {
             try {
@@ -189,16 +264,16 @@ public class ListActivity extends AppCompatActivity {
                     test[i]=test[i].replace("\"arrivalTime\":","");
                     test[i]=test[i].replace("\"","");
                     String inform[]=test[i].split(",");
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-                    Date select1 = dateFormat.parse(inform[2].replace("-","."));
-                    booking.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
+                    //DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+                    //Date select1 = dateFormat.parse(inform[2].replace("-","."));
+                    bk.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-    };
+    };*/
 
     class SingleAdapter extends BaseAdapter {
 
@@ -245,7 +320,7 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
-   /* public void upDate (){
+    /*public void upDate (){
 
         Response.Listener<String> res = new Response.Listener<String>() {
             @Override
@@ -254,10 +329,41 @@ public class ListActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
                     if(success){
-                        Toast.makeText(ListActivity.this,"패널티 값 수정완료",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ArrivalListActivity.this,"수정완료",Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(ListActivity.this,"패널티 값 수정실패",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ArrivalListActivity.this,"수정실패",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return;
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        user_id = (EditText) findViewById(R.id.user_id);
+        arrival_time = (EditText) findViewById(R.id.arrival_time);
+        String id = user_id.getText().toString();
+        String time = arrival_time.getText().toString();
+        ArrivalRequest aq = new ArrivalRequest(id, time, res);
+        RequestQueue queue1 = Volley.newRequestQueue(ArrivalListActivity.this);
+        queue1.add(aq);
+    }*/
+
+    public void upDate2 (){
+
+        Response.Listener<String> res = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if(success){
+                        Toast.makeText(ArrivalListActivity.this,"패널티 값 수정완료",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(ArrivalListActivity.this,"패널티 값 수정실패",Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -270,17 +376,17 @@ public class ListActivity extends AppCompatActivity {
         user_id = (EditText) findViewById(R.id.user_id);
         String id = user_id.getText().toString();
         penalty = "T";
-        UpDate update = new UpDate(id, penalty, res);
+        UpDate2 update = new UpDate2(id, penalty, res);
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(update);
 
 
     }
 
-    class UpDate extends StringRequest{
+    class UpDate2 extends StringRequest{
         final static private String URL ="http://192.168.219.100/update_penalty.php";
         private Map map;
-        public UpDate(String id, String penalty, Response.Listener listener){
+        public UpDate2(String id, String penalty, Response.Listener listener){
             super(Method.POST, URL, listener, null);
 
             map = new HashMap();
@@ -290,7 +396,6 @@ public class ListActivity extends AppCompatActivity {
         protected Map getParams() throws AuthFailureError{
             return map;
         }
-    }*/
-
+    }
 
 }

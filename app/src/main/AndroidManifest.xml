@@ -69,6 +69,10 @@
                 android:name="com.restaurant_reservation_system.controllers.OnSiteReservationActivity"
                 android:theme="@style/AppTheme.main"
                 android:windowSoftInputMode="stateHidden" />
+        <activity
+                android:name="com.restaurant_reservation_system.controllers.ArrivalListActivity"
+                android:theme="@style/AppTheme.main"
+                android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

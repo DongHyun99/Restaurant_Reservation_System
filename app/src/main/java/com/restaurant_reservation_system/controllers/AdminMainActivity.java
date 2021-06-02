@@ -69,9 +69,8 @@ public class AdminMainActivity extends AppCompatActivity {
         btnArrivalTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // 노쇼 리스트
-                showDate();
-                //Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                // startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -81,6 +80,14 @@ public class AdminMainActivity extends AppCompatActivity {
             public void onClick(View v) { // 통계
                 Intent intent = new Intent(getApplicationContext(), StaticisActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        Button btnArrival = (Button) findViewById(R.id.ArrivalList_btn);
+        btnArrival.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { // 도착기록 리스트
+                showDate();
             }
         });
     }
@@ -126,11 +133,10 @@ public class AdminMainActivity extends AppCompatActivity {
         return false;
     }
 
-
     void showDate() {
         //달력 보여주는 함수
         java.util.Calendar cal = java.util.Calendar.getInstance();
-        Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ArrivalListActivity.class);
         intent.putExtra("id", getStringId);
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -215,7 +221,7 @@ public class AdminMainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.0.103/reservation.php";
+                String site = "http://192.168.219.100/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();

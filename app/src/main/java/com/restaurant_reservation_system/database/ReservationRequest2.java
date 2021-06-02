@@ -9,7 +9,7 @@ import java.util.Map;
 public class ReservationRequest2 extends StringRequest {
 
     // 서버 URL 설정 ( PHP 파일 연동 )
-    final static private String URL = "http://192.168.219.100/edit_reservation.php";
+    final static private String URL = "http://192.168.219.100/delete_reservation.php";
     private Map<String, String> map;
 
 
