@@ -190,6 +190,15 @@ public class TImeTableActivity extends AppCompatActivity {
 
     void view_edit(EditText etEdit){
         String inputValue = etEdit.getText().toString();
+        Boolean TF = false;
+        for (Booking book : booking){
+            if(book.getReservation_num().equals(inputValue))
+                TF = true;
+        }
+        if (TF == false){
+            Toast.makeText(TImeTableActivity.this, "존재하지 않는 예약 번호", Toast.LENGTH_SHORT).show();
+            return;
+        }
         intent = new Intent(getApplicationContext(), EditActivity.class);
         intent.putExtra("booking", booking);
         intent.putExtra("reservation_num", inputValue);
