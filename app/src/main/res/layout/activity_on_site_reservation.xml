@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/onsite_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="textPersonName"
+                        android:textSize="30dp"
+                        android:textAlignment="center"
+                />
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content">
+                        <TextView
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textAlignment="center"
+                                android:text="정보를 입력하세요"
+
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <EditText
+                                android:id="@+id/onsite_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:inputType="textPersonName"
+                                android:hint="name"/>
+                        <EditText
+                                android:id="@+id/onsite_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="phone number"/>
+
+                        <EditText
+                                android:id="@+id/onsite_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:inputType="textPersonName"
+                                android:hint="hh-mm-ss"/>
+
+
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content">
+                        <EditText
+                                android:id="@+id/onsite_covers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:inputType="textPersonName"
+                                android:hint="covers"/>
+
+
+                        <Button
+                                android:layout_marginLeft="50dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="ADD"
+                                android:id="@+id/btnAddOnSite"
+                                android:background="@color/primaryBlue"
+                                android:textColor="@color/colorInverted"
+                        />
+                </LinearLayout>
+
+                <ScrollView android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <ListView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/onsite_list">
+                        </ListView>
+                </ScrollView>
+
+        </LinearLayout>
+
+
+
+
+</RelativeLayout>
