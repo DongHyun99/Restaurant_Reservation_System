@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.restaurant_reservation_system.R;
 import org.json.JSONArray;
@@ -26,16 +25,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class StaticisActivity extends AppCompatActivity {
+public class WaitingListActivity extends AppCompatActivity {
 
-    private static String TAG = "StaticisActivity";
+    private static String TAG = "WaitingListActivity";
 
     private static final String TAG_JSON="webnautes";
-    private static final String TAG_date = "date";
-    private static final String TAG_covers = "covers";
-
-     ArrayList<HashMap<String, String>> mArrayList;
-    ListView mlistView;
+    private static final String TAG_name = "name";
+  private static final String TAG_covers = "covers";
+    private static final String TAG_reservationtime = "reservationtime";
+    ArrayList<HashMap<String, String>> wArrayList;
+    ListView wlistView;
     String mJsonString;
 
 
@@ -43,16 +42,16 @@ public class StaticisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_staticislist_main);
+        setContentView(R.layout.activity_waitinglist_main);
 
-        mlistView = (ListView) findViewById(R.id.listView_main_list);
-        mArrayList = new ArrayList<>();
+        wlistView = (ListView) findViewById(R.id.listView_watinglist_main);
+        wArrayList = new ArrayList<>();
 
-        final View header = getLayoutInflater().inflate(R.layout.activity_staticislist_header, null, false) ;
-        mlistView.addHeaderView(header) ;
+        final View header = getLayoutInflater().inflate(R.layout.activity_waitinglist_header, null, false) ;
+        wlistView.addHeaderView(header) ;
 
         GetData task = new GetData();
-        task.execute("http://192.168.45.128/getjson.php");
+        task.execute("http://192.168.45.128/waitinglist.php");
     }
 
 
@@ -64,7 +63,7 @@ public class StaticisActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(StaticisActivity.this,
+            progressDialog = ProgressDialog.show(WaitingListActivity.this,
                     "Please Wait", null, true, true);
         }
 
@@ -154,24 +153,25 @@ public class StaticisActivity extends AppCompatActivity {
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
-                String id = item.getString(TAG_date);
-                String name = item.getString(TAG_covers);
+                String name = item.getString(TAG_name);
 
+                String covers = item.getString(TAG_covers);
+                String reservationtime = item.getString(TAG_reservationtime);
                 HashMap<String,String> hashMap = new HashMap<>();
 
-                hashMap.put(TAG_date, id);
-                hashMap.put(TAG_covers, name);
-
-                mArrayList.add(hashMap);
+                hashMap.put(TAG_name, name);
+                hashMap.put(TAG_covers, covers);
+                hashMap.put(TAG_reservationtime, reservationtime);
+                wArrayList.add(hashMap);
             }
 
             ListAdapter adapter = new SimpleAdapter(
-                    StaticisActivity.this, mArrayList, R.layout.activity_staticislist,
-                    new String[]{TAG_date,TAG_covers},
-                    new int[]{R.id.textView_list_date, R.id.textView_list_covers}
+                    WaitingListActivity.this, wArrayList, R.layout.activity_waitinglist,
+                    new String[]{TAG_name,TAG_covers,TAG_reservationtime},
+                    new int[]{R.id.textView_waitinglist_name, R.id.textView_waitinglist_covers, R.id.textView_waitinglist_reservationtime}
             );
 
-            mlistView.setAdapter(adapter);
+            wlistView.setAdapter(adapter);
 
         } catch (JSONException e) {
 

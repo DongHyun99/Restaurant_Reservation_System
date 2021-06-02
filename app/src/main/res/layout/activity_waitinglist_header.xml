@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#666666">
+
+    <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:textSize="16dp"
+            android:textColor="#FFFFFF"
+            android:layout_weight="4"
+            android:paddingLeft="16dp" />
+
+    <TextView
+            android:id="@+id/covers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인원수"
+            android:textSize="16dp"
+            android:textColor="#FFFFFF"
+
+            android:layout_weight="4" />
+
+    <TextView
+            android:id="@+id/reservationtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="예약등록시간"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:textColor="#FFFFFF"
+            android:layout_weight="4" />
+
+</LinearLayout>

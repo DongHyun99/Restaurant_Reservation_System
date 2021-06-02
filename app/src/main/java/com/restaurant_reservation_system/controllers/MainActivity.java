@@ -71,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
         btnWatingList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // 대기 리스트
-
+                Intent intent = new Intent(getApplicationContext(), WaitingListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.219.100/reservation.php";
+                String site = "http://192.168.45.128/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
