@@ -49,7 +49,7 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String cover = covers.getText().toString();
-                String table = Integer.toString(Integer.parseInt(table_num.getSelectedItem().toString()));
+                String table = Integer.toString(Integer.parseInt(table_num.getSelectedItem().toString())-1);
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -63,7 +63,7 @@ public class AddActivity extends AppCompatActivity {
                     }
                 };
                 // 서버로 Volley를 이용해서 요청을 함.
-                ReservationRequest reservationRequest = new ReservationRequest(Integer.toString(max_num),cover,date,time,table,getIntent().getStringExtra("id"),responseListener);
+                ReservationRequest reservationRequest = new ReservationRequest(Integer.toString(max_num),cover,date,time,table,getIntent().getStringExtra("id"),"00:00",responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AddActivity.this);
                 queue.add(reservationRequest);
 
