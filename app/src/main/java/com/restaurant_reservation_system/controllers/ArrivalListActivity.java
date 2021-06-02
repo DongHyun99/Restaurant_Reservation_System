@@ -145,8 +145,6 @@ public class ArrivalListActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 return;
-                            }catch(Exception e){
-                                e.printStackTrace();
                             }
                         }
                     };
@@ -368,8 +366,6 @@ public class ArrivalListActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     return;
-                }catch(Exception e){
-                    e.printStackTrace();
                 }
             }
         };
