@@ -30,7 +30,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="15dp"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="25dp">
 
                     <TextView
                             android:id="@+id/title"
@@ -63,7 +63,7 @@
                         android:paddingLeft="15dp"
                         android:paddingBottom="10dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="25dp"
                 >
 
                     <ImageView
@@ -87,6 +87,35 @@
                             android:textColor="@color/colorInverted"/>
 
                 </LinearLayout>
+                <LinearLayout
+                        android:id="@+id/containerArrivalList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp"
+                        android:paddingBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="20dp">
+
+                    <ImageView
+                            android:layout_width="85dp"
+                            android:layout_height="63dp"
+                            android:src="@drawable/waitinglist"
+                            android:paddingTop="1dp"
+                            android:paddingRight="15dp"/>
+                    <Button
+                            android:id="@+id/ArrivalList_btn"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:background="@color/primaryBlue"
+                            android:text="도착기록리스트"
+                            android:textSize="18sp"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:fontFamily="sans-serif-condensed-medium"
+                            android:textColor="@color/colorInverted"/>
+                </LinearLayout>
 
                 <LinearLayout
                         android:id="@+id/containerArriveTime"
@@ -96,7 +125,7 @@
                         android:paddingLeft="15dp"
                         android:paddingBottom="10dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="25dp"
                 >
 
                     <ImageView
@@ -128,7 +157,7 @@
                         android:paddingLeft="15dp"
                         android:paddingBottom="10dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="25dp">
 
                     <ImageView
                             android:layout_width="85dp"
@@ -149,64 +178,7 @@
                             android:fontFamily="sans-serif-condensed-medium"
                             android:textColor="@color/colorInverted"/>
                 </LinearLayout>
-                <LinearLayout
-                        android:id="@+id/containerArrivalList"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingLeft="15dp"
-                        android:paddingBottom="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="5dp">
 
-                    <ImageView
-                            android:layout_width="85dp"
-                            android:layout_height="63dp"
-                            android:src="@drawable/waitinglist"
-                            android:paddingTop="1dp"
-                            android:paddingRight="15dp"/>
-                    <Button
-                            android:id="@+id/ArrivalList_btn"
-                            android:layout_width="180dp"
-                            android:layout_height="wrap_content"
-                            android:background="@color/primaryBlue"
-                            android:text="도착기록리스트"
-                            android:textSize="18sp"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:fontFamily="sans-serif-condensed-medium"
-                            android:textColor="@color/colorInverted"/>
-                </LinearLayout>
-                <LinearLayout
-                        android:id="@+id/containerSetting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingLeft="15dp"
-                        android:paddingBottom="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="5dp">
-
-                    <ImageView
-                            android:layout_width="85dp"
-                            android:layout_height="63dp"
-                            android:src="@drawable/setting"
-                            android:paddingTop="1dp"
-                            android:paddingRight="15dp"/>
-                    <Button
-                            android:id="@+id/btnSetting"
-                            android:layout_width="180dp"
-                            android:layout_height="wrap_content"
-                            android:background="@color/primaryBlue"
-                            android:text="환경설정"
-                            android:textSize="18sp"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:fontFamily="sans-serif-condensed-medium"
-                            android:textColor="@color/colorInverted"/>
-                </LinearLayout>
             </LinearLayout>
         </FrameLayout>
     </RelativeLayout>

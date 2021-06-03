@@ -56,7 +56,7 @@ public class AdminMainActivity extends AppCompatActivity {
         Button btnOnSite = findViewById(R.id.btnOnSite);
         btnOnSite.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {//현장예약
                 showDate2();
                 //Intent intent2 = new Intent(AdminMainActivity.this, OnSiteReservationActivity.class);
                 // startActivity(intent2);
@@ -84,7 +84,7 @@ public class AdminMainActivity extends AppCompatActivity {
         });
 
         Button btnArrival = (Button) findViewById(R.id.ArrivalList_btn);
-        btnArrival.setOnClickListener(new View.OnClickListener() {
+        btnArrival.setOnClickListener(new View.OnClickListener() {// 도착기록 리스트
             @Override
             public void onClick(View v) { // 도착기록 리스트
                 showDate();
