@@ -93,8 +93,9 @@ public class AdminMainActivity extends AppCompatActivity {
     }
 
     private void inform_search() {
+
         getStringName = getIntent().getStringExtra("name");
-        name = (TextView) findViewById(R.id.name);
+        name = (TextView) findViewById(R.id.names);
         name.setText(getStringName + " 님");
 
         boolean success = match();
@@ -221,7 +222,7 @@ public class AdminMainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://121.169.25.215/reservation.php";
+                String site = "http://192.168.25.25/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();

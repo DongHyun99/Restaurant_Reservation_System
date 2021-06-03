@@ -25,7 +25,7 @@
         </TextView>
 
         <TextView
-                android:id="@+id/name"
+                android:id="@+id/names"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이름"
@@ -130,17 +130,17 @@
                 android:layout_marginTop="480dp">
         </LinearLayout>
 
-        <TextView
+        <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="로그아웃"
                 android:textSize="15dp"
-                android:textColor="#ffffff"
-                android:id="@+id/nav_logout"
+                android:textColor="#050505"
+                android:id="@+id/btnLogOut"
                 android:layout_marginTop="550dp"
                 android:layout_centerHorizontal="true"
                 android:onClick="OnClick">
-        </TextView>
+        </Button>
     </RelativeLayout>
 
 </LinearLayout>

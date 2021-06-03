@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class EditActivity extends AppCompatActivity {
 
-    String reservation_num, id, penalty, edit_time;
+    String reservation_num, id, penalty, edit_time,name;
     int day, month, year, maxNum;
     Booking booking;
 
@@ -119,6 +119,7 @@ public class EditActivity extends AppCompatActivity {
         year = getIntent().getIntExtra("year", -1);
         maxNum = getIntent().getIntExtra("maxNum", 1);
         penalty = getIntent().getStringExtra("penalty");
+        name = getIntent().getStringExtra("name");
         ArrayList<Booking> bookings = (ArrayList<Booking>) getIntent().getSerializableExtra("booking");
 
         // ArrayList 에서 예약 번호와 같은 booking 찾기
@@ -148,6 +149,7 @@ public class EditActivity extends AppCompatActivity {
         intent.putExtra("year", getIntent().getIntExtra("year", -1));
         intent.putExtra("maxNum", getIntent().getIntExtra("maxNum", -1));
         intent.putExtra("penalty", getIntent().getStringExtra("penalty"));
+        intent.putExtra("name",getIntent().getStringExtra("name"));
     }
 
     void showTime(){

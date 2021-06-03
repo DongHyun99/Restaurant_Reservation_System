@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     static ArrayList<Booking> booking;
     static int max_num=0;
-    private TextView name;
     String getStringId;
     String getStringName;
     String u_date;
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     TextView date;
     TextView time;
     TextView covers;
+    TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,21 +70,31 @@ public class MainActivity extends AppCompatActivity {
         Button btnWatingList= (Button) findViewById(R.id.btnWaitingList);
         btnWatingList.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { // 대기 리스트
+            public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), WaitingListActivity.class);
                 startActivity(intent);
             }
         });
 
+        Button btnLogOut = (Button) findViewById(R.id.btnLogOut);
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void inform_search() {
+
         getStringName = getIntent().getStringExtra("name");
-        name = (TextView)findViewById(R.id.name);
+        name = (TextView) findViewById(R.id.names);
         name.setText(getStringName+" 님");
 
         boolean success = match();
         if(success) {
+
             date = (TextView) findViewById(R.id.date);
             date.setText("날짜     "+u_date);
 
@@ -126,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         java.util.Calendar cal = java.util.Calendar.getInstance();
         Intent intent = new Intent(getApplicationContext(), TImeTableActivity.class);
         intent.putExtra("id",getStringId);
+        intent.putExtra("name",getStringName);
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -177,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://121.169.25.215/reservation.php";
+                String site = "http://192.168.25.25/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -219,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
 
     };

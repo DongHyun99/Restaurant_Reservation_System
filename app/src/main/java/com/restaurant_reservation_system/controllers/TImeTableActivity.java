@@ -32,6 +32,7 @@ public class TImeTableActivity extends AppCompatActivity {
     static ArrayList<Booking> booking;
     Intent intent;
     String user_Penalty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         user_Penalty = getIntent().getStringExtra("penalty");
@@ -49,6 +50,7 @@ public class TImeTableActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (user_Penalty.equals("F")) {
                     Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                    intent.putExtra("name", getIntent().getStringExtra("name"));
                     intent.putExtra("id", getIntent().getStringExtra("id"));
                     intent.putExtra("day", getIntent().getIntExtra("day", -1));
                     intent.putExtra("month", getIntent().getIntExtra("month", -1));
@@ -117,7 +119,7 @@ public class TImeTableActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://121.169.25.215/reservation.php";
+                String site = "http://192.168.25.25/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -202,6 +204,7 @@ public class TImeTableActivity extends AppCompatActivity {
         intent = new Intent(getApplicationContext(), EditActivity.class);
         intent.putExtra("booking", booking);
         intent.putExtra("reservation_num", inputValue);
+        intent.putExtra("name", getIntent().getStringExtra("name"));
         intent.putExtra("id", getIntent().getStringExtra("id"));
         intent.putExtra("day", getIntent().getIntExtra("day", -1));
         intent.putExtra("month", getIntent().getIntExtra("month", -1));
@@ -210,4 +213,15 @@ public class TImeTableActivity extends AppCompatActivity {
         intent.putExtra("penalty", getIntent().getStringExtra("penalty"));
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(TImeTableActivity.this, MainActivity.class);
+        intent.putExtra("name", getIntent().getStringExtra("name"));
+        intent.putExtra("id", getIntent().getStringExtra("id"));
+        intent.putExtra("penalty", getIntent().getStringExtra("penalty"));
+        startActivity(intent);
+    }
+
+
 }

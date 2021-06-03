@@ -37,7 +37,6 @@ public class AddActivity extends AppCompatActivity {
         TextView covers = (TextView)findViewById(R.id.Covers_add);
         Spinner table_num = (Spinner)findViewById(R.id.add_table_spinner);
         time_pick = (TextView)findViewById(R.id.add_start_time);
-
         String day = Integer.toString(getIntent().getIntExtra("day", 1));
         String month = Integer.toString(getIntent().getIntExtra("month", 1) + 1);
         String year = Integer.toString(getIntent().getIntExtra("year", 1));
@@ -69,6 +68,7 @@ public class AddActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"예약이 추가되었습니다.",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),TImeTableActivity.class);
+                intent.putExtra("name", getIntent().getStringExtra("name"));
                 intent.putExtra("id",getIntent().getStringExtra("id"));
                 intent.putExtra("day", getIntent().getIntExtra("day", 1));
                 intent.putExtra("month",getIntent().getIntExtra("month", 1));
