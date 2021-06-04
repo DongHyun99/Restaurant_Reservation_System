@@ -1,5 +1,6 @@
 package com.restaurant_reservation_system.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -63,14 +64,6 @@ public class OnSiteReservationActivity extends AppCompatActivity {
                     OnsiteDialog.show();
                     return;
                 }
-               /* if(onsiteday.equals("")){
-                    AlertDialog.Builder builder=new AlertDialog.Builder( OnSiteReservationActivity.this );
-                    OnsiteDialog=builder.setMessage("예약 날짜를 입력하세요")
-                            .setPositiveButton("확인",null)
-                            .create();
-                    OnsiteDialog.show();
-                    return;
-                }*/
                 if(onsitetime.equals("")){
                     AlertDialog.Builder builder=new AlertDialog.Builder( OnSiteReservationActivity.this );
                     OnsiteDialog=builder.setMessage("예약 시간을 입력하세요")
@@ -105,6 +98,9 @@ public class OnSiteReservationActivity extends AppCompatActivity {
                 Onsite_ReservationRequest on_request= new Onsite_ReservationRequest(onsitename, onsitephone, date, onsitetime, onsitecovers, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(OnSiteReservationActivity.this);
                 queue.add(on_request);
+
+                Intent intent = new Intent(OnSiteReservationActivity.this, AdminMainActivity.class);//
+                startActivity(intent);
             }
 
 

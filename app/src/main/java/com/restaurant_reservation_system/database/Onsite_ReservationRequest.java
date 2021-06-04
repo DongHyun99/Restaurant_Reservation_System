@@ -11,7 +11,7 @@ import java.util.Map;
 public class Onsite_ReservationRequest extends StringRequest {
 
     // 서버 URL 설정 ( PHP 파일 연동 )
-    final static private String URL = "http://192.168.25.25/edit_onsitereservation.php";
+    final static private String URL = "http://192.168.25.8/edit_onsitereservation.php";
     private Map<String, String> map;
 
 

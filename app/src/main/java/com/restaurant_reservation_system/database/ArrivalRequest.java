@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ArrivalRequest extends StringRequest {
-    final static private String URL ="http://192.168.25.25/update_arrivaltime.php";
+    final static private String URL ="http://192.168.25.8/update_arrivaltime.php";
     private Map<String,String> map;
     public ArrivalRequest(String id, String time, Response.Listener listener){
         super(Request.Method.POST, URL, listener, null);

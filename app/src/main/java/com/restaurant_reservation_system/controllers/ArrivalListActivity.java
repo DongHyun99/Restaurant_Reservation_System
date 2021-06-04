@@ -1,4 +1,5 @@
 package com.restaurant_reservation_system.controllers;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,12 +41,13 @@ public class ArrivalListActivity extends AppCompatActivity {
     EditText user_id;
     EditText arrival_time;
     String time;
-    ArrayList<User> users= LoginActivity.userArray;
-    static HashMap<String,ListData> arrival = new HashMap<>() ;
+    ArrayList<User> users = LoginActivity.userArray;
+    static HashMap<String, ListData> arrival = new HashMap<>();
     ArrayList<SingleItem> items = new ArrayList<SingleItem>();
     String penalty;
-    ArrayList<Booking> bk= AdminMainActivity.booking;
+    ArrayList<Booking> bk = AdminMainActivity.booking;
     String date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,42 +59,36 @@ public class ArrivalListActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
 
         //Thread thread = new Thread(runnable);
-       // thread.start();
+        // thread.start();
 
 
-        int day =getIntent().getIntExtra("day", 1);
-        int month =getIntent().getIntExtra("month", 1) + 1;
+        int day = getIntent().getIntExtra("day", 1);
+        int month = getIntent().getIntExtra("month", 1) + 1;
         String day2 = null;
-        String month2 =null;
-        if(day<10)
-            day2="0"+Integer.toString(day);
-        else
-            day2=Integer.toString(day);
-        if(month<10)
-            month2="0"+Integer.toString(month);
-        else
-            month2=Integer.toString(month);
+        String month2 = null;
+        day2 = Integer.toString(day);
+        month2 = Integer.toString(month);
         String year = Integer.toString(getIntent().getIntExtra("year", 1));
         date = year + "-" + month2 + "-" + day2;
 
         // 어댑터 안에 데이터 담기
         adapter = new SingleAdapter();
 
-        if(!arrival.isEmpty()){
-            Iterator<String> keys =arrival.keySet().iterator();
-            while( keys.hasNext() ){
+        if (!arrival.isEmpty()) {
+            Iterator<String> keys = arrival.keySet().iterator();
+            while (keys.hasNext()) {
                 String key = keys.next();
-                if(date.equals(arrival.get(key).getDate()))
-                adapter.addItem(new SingleItem(key,arrival.get(key).getTime(),R.drawable.logo1));
-            }}
+                if (date.equals(arrival.get(key).getDate()))
+                    adapter.addItem(new SingleItem(key, arrival.get(key).getTime(), R.drawable.logo1));
+            }
+        }
 
-        for(int i=0; i<bk.size();i++){
-            if(bk.get(i).getDate().equals(date) && !bk.get(i).getArrivalTime().equals("00:00"))
-                adapter.addItem(new SingleItem(bk.get(i).getCustomer_id(),bk.get(i).getArrivalTime(),R.drawable.logo1));
+        for (int i = 0; i < bk.size(); i++) {
+            if (bk.get(i).getDate().equals(date) && !bk.get(i).getArrivalTime().equals("00:00"))
+                adapter.addItem(new SingleItem(bk.get(i).getCustomer_id(), bk.get(i).getArrivalTime(), R.drawable.logo1));
         }
         // 리스트 뷰에 어댑터 설정
         listView.setAdapter(adapter);
-
 
 
         // 버튼 눌렀을 때 우측 이름, 전화번호가 리스트뷰에 포함되도록 처리
@@ -103,30 +99,25 @@ public class ArrivalListActivity extends AppCompatActivity {
                 String id = user_id.getText().toString();
                 time = arrival_time.getText().toString();
 
-                int day =getIntent().getIntExtra("day", 1);
-                int month =getIntent().getIntExtra("month", 1) + 1;
+                int day = getIntent().getIntExtra("day", 1);
+                int month = getIntent().getIntExtra("month", 1) + 1;
                 String day2 = null;
-                String month2 =null;
-                if(day<10)
-                    day2="0"+Integer.toString(day);
-                else
-                    day2=Integer.toString(day);
-                if(month<10)
-                    month2="0"+Integer.toString(month);
-                else
-                    month2=Integer.toString(month);
+                String month2 = null;
+
+                day2 = Integer.toString(day);
+                month2 = Integer.toString(month);
                 String year = Integer.toString(getIntent().getIntExtra("year", 1));
                 date = year + "-" + month2 + "-" + day2;
                 Booking b = null;
                 for (int i = 0; i < bk.size(); i++) {
-                    if (bk.get(i).getCustomer_id().equals(id)&&bk.get(i).getDate().equals(date)) {
+                    if (bk.get(i).getCustomer_id().equals(id) && bk.get(i).getDate().equals(date)) {
                         b = bk.get(i);
                         break;
                     }
                 }
-                if(b!=null){
+                if (b != null) {
 
-                    arrival.put(id,new ListData(date,time));
+                    arrival.put(id, new ListData(date, time));
                     adapter.addItem(new SingleItem(id, time, R.drawable.logo1));
                     adapter.notifyDataSetChanged();
                     listView.setAdapter(adapter);
@@ -136,14 +127,14 @@ public class ArrivalListActivity extends AppCompatActivity {
                     String[] t2 = null;
                     t1 = b.getTime().split(":");
                     t2 = time.split(":");
-                    int reservation_time = Integer.parseInt(t1[0])*100+Integer.parseInt(t1[1]);//예약시간
-                    int real_arrive = Integer.parseInt(t2[0])*100+Integer.parseInt(t2[1]);
+                    int reservation_time = Integer.parseInt(t1[0]) * 100 + Integer.parseInt(t1[1]);//예약시간
+                    int real_arrive = Integer.parseInt(t2[0]) * 100 + Integer.parseInt(t2[1]);
 
-                    if (real_arrive-reservation_time>0) {
-                        ListActivity.noShow.put(id,time);
+                    if (real_arrive - reservation_time > 0) {
+                        ListActivity.noShow.put(id, time);
                         upDate2();
                     }
-                }else{
+                } else {
                     onClickShowAlert(v);
                 }
 
@@ -152,6 +143,7 @@ public class ArrivalListActivity extends AppCompatActivity {
             }
         });
     }
+
     public void onClickShowAlert(View view) {
         AlertDialog.Builder myAlertBuilder =
                 new AlertDialog.Builder(ArrivalListActivity.this);
@@ -172,37 +164,38 @@ public class ArrivalListActivity extends AppCompatActivity {
         myAlertBuilder.show();
     }
 
-     class ListData{
+    class ListData {
         String date;
         String time;
-       public ListData(String date, String time){
+
+        public ListData(String date, String time) {
             this.date = date;
             this.time = time;
-         }
+        }
 
-         public String getDate() {
-             return date;
-         }
+        public String getDate() {
+            return date;
+        }
 
-         public void setDate(String date) {
-             this.date = date;
-         }
+        public void setDate(String date) {
+            this.date = date;
+        }
 
-         public String getTime() {
-             return time;
-         }
+        public String getTime() {
+            return time;
+        }
 
-         public void setTime(String time) {
-             this.time = time;
-         }
-     }
+        public void setTime(String time) {
+            this.time = time;
+        }
+    }
 
 
    /* Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
         @Override
         public void run() {
             try {
-                String site = "http://192.168.25.25/reservation.php";
+                String site = "http://192.168.25.8/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -294,24 +287,23 @@ public class ArrivalListActivity extends AppCompatActivity {
         }
     }
 
-    public void upDate (){
+    public void upDate() {
 
         Response.Listener<String> res = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try{
+                try {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
-                    if(success){
-                        Toast.makeText(ArrivalListActivity.this,"수정완료",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(ArrivalListActivity.this,"수정실패",Toast.LENGTH_SHORT).show();
+                    if (success) {
+                        Toast.makeText(ArrivalListActivity.this, "수정완료", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ArrivalListActivity.this, "수정실패", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     return;
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -325,19 +317,18 @@ public class ArrivalListActivity extends AppCompatActivity {
         queue1.add(aq);
     }
 
-    public void upDate2 (){
+    public void upDate2() {
 
         Response.Listener<String> res = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try{
+                try {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
-                    if(success){
-                        Toast.makeText(ArrivalListActivity.this,"패널티 값 수정완료",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(ArrivalListActivity.this,"패널티 값 수정실패",Toast.LENGTH_SHORT).show();
+                    if (success) {
+                        Toast.makeText(ArrivalListActivity.this, "패널티 값 수정완료", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ArrivalListActivity.this, "패널티 값 수정실패", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -355,17 +346,19 @@ public class ArrivalListActivity extends AppCompatActivity {
 
     }
 
-    class UpDate2 extends StringRequest{
-        final static private String URL ="http://192.168.25.25/update_penalty.php";
+    class UpDate2 extends StringRequest {
+        final static private String URL = "http://192.168.25.8/update_penalty.php";
         private Map map;
-        public UpDate2(String id, String penalty, Response.Listener listener){
+
+        public UpDate2(String id, String penalty, Response.Listener listener) {
             super(Method.POST, URL, listener, null);
 
             map = new HashMap();
-            map.put("id",id);
-            map.put("penalty",penalty);
+            map.put("id", id);
+            map.put("penalty", penalty);
         }
-        protected Map getParams() throws AuthFailureError{
+
+        protected Map getParams() throws AuthFailureError {
             return map;
         }
     }

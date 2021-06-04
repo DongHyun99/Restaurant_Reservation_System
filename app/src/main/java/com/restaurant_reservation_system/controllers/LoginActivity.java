@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.25.25/user_inform.php";
+                String site = "http://192.168.25.8/user_inform.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -167,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
     };
 

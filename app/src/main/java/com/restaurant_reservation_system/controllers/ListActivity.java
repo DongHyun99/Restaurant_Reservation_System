@@ -73,87 +73,15 @@ public class ListActivity extends AppCompatActivity {
         // 리스트 뷰에 어댑터 설정
         listView.setAdapter(adapter);
 
-
-
-        // 버튼 눌렀을 때 우측 이름, 전화번호가 리스트뷰에 포함되도록 처리
-        /*Button button = (Button) findViewById(R.id.AddList_btn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = user_id.getText().toString();
-                String time = arrival_time.getText().toString();
-
-                int day =getIntent().getIntExtra("day", 1);
-                int month =getIntent().getIntExtra("month", 1) + 1;
-                String day2 = null;
-                String month2 =null;
-                if(day<10)
-                    day2="0"+Integer.toString(day);
-                else
-                    day2=Integer.toString(day);
-                if(month<10)
-                    month2="0"+Integer.toString(month);
-                else
-                    month2=Integer.toString(month);
-                String year = Integer.toString(getIntent().getIntExtra("year", 1));
-                date = year + "-" + month2 + "-" + day2;
-                Booking b = null;
-                for (int i = 0; i < booking.size(); i++) {
-                    if (booking.get(i).getCustomer_id().equals(id)&&booking.get(i).getDate().equals(date)) {
-                        b = booking.get(i);
-                        break;
-                    }
-                }
-                if(b!=null){
-                    String[] t1 = null;
-                    String[] t2 = null;
-                    t1 = b.getTime().split(":");
-                    t2 = time.split(":");
-                    int reservation_time = Integer.parseInt(t1[0])*100+Integer.parseInt(t1[1]);//예약시간
-                    int real_arrive = Integer.parseInt(t2[0])*100+Integer.parseInt(t2[1]);
-
-                    if (real_arrive-reservation_time>0) {
-                        adapter.addItem(new SingleItem(id, time, R.drawable.logo1));
-                        adapter.notifyDataSetChanged();
-                        listView.setAdapter(adapter);
-                        upDate();
-                        noShow.put(id,time);
-                    }
-                }else{
-                    onClickShowAlert(v);
-                }
-
-
-//여기까지
-            }
-        });*/
     }
-    /*public void onClickShowAlert(View view) {
-        AlertDialog.Builder myAlertBuilder =
-                new AlertDialog.Builder(ListActivity.this);
-        // alert의 title과 Messege 세팅
-        myAlertBuilder.setTitle("Alert");
-        myAlertBuilder.setMessage("해당 날짜에 일치하는 손님은 없습니다.");
-        // 버튼 추가 (Ok 버튼과 Cancle 버튼 )
-        myAlertBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // OK 버튼을 눌렸을 경우
-                Toast.makeText(getApplicationContext(), "Pressed OK",
-                        Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(ListActivity.this, LoginActivity.class);
-                // startActivity(intent);
-            }
-        });
-        // Alert를 생성해주고 보여주는 메소드(show를 선언해야 Alert가 생성됨)
-        myAlertBuilder.show();
-    }*/
+
 
 
     Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
         @Override
         public void run() {
             try {
-                String site = "http://192.168.25.25/reservation.php";
+                String site = "http://192.168.25.8/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -278,7 +206,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class UpDate extends StringRequest{
-        final static private String URL ="http://192.168.25.25/update_penalty.php";
+        final static private String URL ="http://192.168.25.8/update_penalty.php";
         private Map map;
         public UpDate(String id, String penalty, Response.Listener listener){
             super(Method.POST, URL, listener, null);
