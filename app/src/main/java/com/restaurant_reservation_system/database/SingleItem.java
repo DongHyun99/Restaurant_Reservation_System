@@ -13,15 +13,6 @@ public class SingleItem {
         this.resId = resId;
     }
 
-    // Generate > Getter and Setter
-       /* public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }*/
-
     public String getId() {
         return id;
     }
