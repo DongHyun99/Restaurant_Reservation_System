@@ -95,47 +95,63 @@ public class ArrivalListActivity extends AppCompatActivity {
                 String id = user_id.getText().toString();
                 time = arrival_time.getText().toString();
 
-                int day = getIntent().getIntExtra("day", 1);
-                int month = getIntent().getIntExtra("month", 1) + 1;
-                String day2 = null;
-                String month2 = null;
+                if(time.contains(":")){
+                    int day = getIntent().getIntExtra("day", 1);
+                    int month = getIntent().getIntExtra("month", 1) + 1;
+                    String day2 = null;
+                    String month2 = null;
 
-                day2 = Integer.toString(day);
-                month2 = Integer.toString(month);
-                String year = Integer.toString(getIntent().getIntExtra("year", 1));
-                date = year + "-" + month2 + "-" + day2;
-                Booking b = null;
-                for (int i = 0; i < bk.size(); i++) {
-                    if (bk.get(i).getCustomer_id().equals(id) && bk.get(i).getDate().equals(date)) {
-                        b = bk.get(i);
-                        break;
+                    day2 = Integer.toString(day);
+                    month2 = Integer.toString(month);
+                    String year = Integer.toString(getIntent().getIntExtra("year", 1));
+                    date = year + "-" + month2 + "-" + day2;
+                    Booking b = null;
+                    for (int i = 0; i < bk.size(); i++) {
+                        if (bk.get(i).getCustomer_id().equals(id) && bk.get(i).getDate().equals(date)) {
+                            b = bk.get(i);
+                            break;
+                        }
                     }
+                    if (b != null) {
+
+                        arrival.put(id, new ListData(date, time));
+                        adapter.addItem(new SingleItem(id, time, R.drawable.logo1));
+                        adapter.notifyDataSetChanged();
+                        listView.setAdapter(adapter);
+                        upDate();
+
+                        String[] t1 = null;
+                        String[] t2 = null;
+                        t1 = b.getTime().split(":");
+                        t2 = time.split(":");
+                        int reservation_time = Integer.parseInt(t1[0]) * 100 + Integer.parseInt(t1[1]);//예약시간
+                        int real_arrive = Integer.parseInt(t2[0]) * 100 + Integer.parseInt(t2[1]);
+
+                        if (real_arrive - reservation_time > 0) {
+                            ListActivity.noShow.put(id, time);
+                            upDate2();
+                        }
+                      }
+                    else {
+                        onClickShowAlert(v);
+                     }
                 }
-                if (b != null) {
-
-                    arrival.put(id, new ListData(date, time));
-                    adapter.addItem(new SingleItem(id, time, R.drawable.logo1));
-                    adapter.notifyDataSetChanged();
-                    listView.setAdapter(adapter);
-                    upDate();
-
-                    String[] t1 = null;
-                    String[] t2 = null;
-                    t1 = b.getTime().split(":");
-                    t2 = time.split(":");
-                    int reservation_time = Integer.parseInt(t1[0]) * 100 + Integer.parseInt(t1[1]);//예약시간
-                    int real_arrive = Integer.parseInt(t2[0]) * 100 + Integer.parseInt(t2[1]);
-
-                    if (real_arrive - reservation_time > 0) {
-                        ListActivity.noShow.put(id, time);
-                        upDate2();
-                    }
-                } else {
-                    onClickShowAlert(v);
+                else{
+                    AlertDialog.Builder myAlertBuilder =
+                            new AlertDialog.Builder(ArrivalListActivity.this);
+                    // alert의 title과 Messege 세팅
+                    myAlertBuilder.setTitle("Alert");
+                    myAlertBuilder.setMessage("도착시간을 다시입력해 주세요. (ex) 12:00");
+                    myAlertBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // OK 버튼을 눌렸을 경우
+                            Toast.makeText(getApplicationContext(), "Pressed OK",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    // Alert를 생성해주고 보여주는 메소드(show를 선언해야 Alert가 생성됨)
+                    myAlertBuilder.show();
                 }
-
-
-//여기까지
             }
         });
     }
