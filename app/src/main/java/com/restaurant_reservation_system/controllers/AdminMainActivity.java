@@ -58,9 +58,6 @@ public class AdminMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {//현장예약
                 showDate2();
-                //Intent intent2 = new Intent(AdminMainActivity.this, OnSiteReservationActivity.class);
-                // startActivity(intent2);
-
             }
         });
         //현장예약 버튼
@@ -222,7 +219,7 @@ public class AdminMainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.25.8/reservation.php";
+                String site = "http://192.168.219.101/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();

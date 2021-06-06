@@ -58,10 +58,6 @@ public class ArrivalListActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
-        //Thread thread = new Thread(runnable);
-        // thread.start();
-
-
         int day = getIntent().getIntExtra("day", 1);
         int month = getIntent().getIntExtra("month", 1) + 1;
         String day2 = null;
@@ -190,58 +186,6 @@ public class ArrivalListActivity extends AppCompatActivity {
         }
     }
 
-
-   /* Runnable runnable = new Runnable() { //출처: https://javapp.tistory.com/132
-        @Override
-        public void run() {
-            try {
-                String site = "http://192.168.25.8/reservation.php";
-                URL url = new URL(site);
-                //접속
-                URLConnection conn = url.openConnection();
-                //서버와 연결되어 있는 스트림을 추출
-                InputStream is = conn.getInputStream();
-                InputStreamReader isr = new InputStreamReader(is, "UTF-8");
-                BufferedReader br = new BufferedReader(isr);
-
-                String str = null;
-                StringBuffer buf = new StringBuffer();
-
-                do {
-                    str = br.readLine();
-                    if (str != null) {
-                        buf.append(str);
-                    }
-                } while (str != null);
-
-                String data = buf.toString();  //json 문자열 다 읽어옴
-
-                data=data.replace("[","");
-                data=data.replace("]","");
-                data=data.replace("{","");
-                String []test = data.split("\\},");
-                test[test.length-1]=test[test.length-1].replace("}","");
-                for(int i=0; i< test.length; i++){
-                    test[i]=test[i].replace("\"reservation_num\":","");
-                    test[i]=test[i].replace("\"covers\":","");
-                    test[i]=test[i].replace("\"date\":","");
-                    test[i]=test[i].replace("\"time\":","");
-                    test[i]=test[i].replace("\"table_id\":","");
-                    test[i]=test[i].replace("\"customer_id\":","");
-                    test[i]=test[i].replace("\"arrivalTime\":","");
-                    test[i]=test[i].replace("\"","");
-                    String inform[]=test[i].split(",");
-                    //DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-                    //Date select1 = dateFormat.parse(inform[2].replace("-","."));
-                    bk.add(new Booking(inform[0],inform[1],inform[2],inform[3],inform[4],inform[5],inform[6]));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    };*/
-
     class SingleAdapter extends BaseAdapter {
 
 
@@ -347,7 +291,7 @@ public class ArrivalListActivity extends AppCompatActivity {
     }
 
     class UpDate2 extends StringRequest {
-        final static private String URL = "http://192.168.25.8/update_penalty.php";
+        final static private String URL = "http://192.168.219.101/update_penalty.php";
         private Map map;
 
         public UpDate2(String id, String penalty, Response.Listener listener) {

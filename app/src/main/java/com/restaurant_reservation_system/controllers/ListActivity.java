@@ -81,7 +81,7 @@ public class ListActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                String site = "http://192.168.25.8/reservation.php";
+                String site = "http://192.168.219.101/reservation.php";
                 URL url = new URL(site);
                 //접속
                 URLConnection conn = url.openConnection();
@@ -172,53 +172,5 @@ public class ListActivity extends AppCompatActivity {
             return view;
         }
     }
-
-   /* public void upDate (){
-
-        Response.Listener<String> res = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try{
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean success = jsonObject.getBoolean("success");
-                    if(success){
-                        Toast.makeText(ListActivity.this,"패널티 값 수정완료",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(ListActivity.this,"패널티 값 수정실패",Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    return;
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-        };
-        user_id = (EditText) findViewById(R.id.user_id);
-        String id = user_id.getText().toString();
-        penalty = "T";
-        UpDate update = new UpDate(id, penalty, res);
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        queue.add(update);
-
-
-    }
-
-    class UpDate extends StringRequest{
-        final static private String URL ="http://192.168.25.8/update_penalty.php";
-        private Map map;
-        public UpDate(String id, String penalty, Response.Listener listener){
-            super(Method.POST, URL, listener, null);
-
-            map = new HashMap();
-            map.put("id",id);
-            map.put("penalty",penalty);
-        }
-        protected Map getParams() throws AuthFailureError{
-            return map;
-        }
-    }*/
-
 
 }
